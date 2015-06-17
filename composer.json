@@ -32,10 +32,5 @@
         "psr-4": {
             "Arcanedev\\Workbench\\Tests\\": "tests/"
         }
-    },
-    "extra": {
-        "merge-plugin": {
-            "include": ["../../../modules/*/composer.json"]
-        }
     }
 }
