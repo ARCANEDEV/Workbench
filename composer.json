@@ -1,0 +1,41 @@
+{
+    "name": "arcanedev/workbench",
+    "description": "A workbench tool for creating Laravel modules.",
+    "keywords": ["workbench", "laravel", "package", "modules", "skeleton", "github"],
+    "homepage": "https://github.com/ARCANEDEV/Workbench",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ARCANEDEV",
+            "email": "arcanedev.maroc@gmail.com",
+            "homepage": "https://github.com/ARCANEDEV"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "arcanedev/composer": "~1.0",
+        "illuminate/support": "~5",
+        "illuminate/console": "~5",
+        "illuminate/filesystem": "~5",
+        "guzzlehttp/guzzle": "~6.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.7",
+        "phpunit/phpcov": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arcanedev\\Workbench\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arcanedev\\Workbench\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "merge-plugin": {
+            "include": ["../../../modules/*/composer.json"]
+        }
+    }
+}
