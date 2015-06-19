@@ -14,12 +14,11 @@
     "require": {
         "php": ">=5.5.9",
         "arcanedev/composer": "~1.0",
-        "illuminate/support": "~5",
-        "illuminate/console": "~5",
-        "illuminate/filesystem": "~5",
+        "arcanedev/support": "~1.0",
         "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
+        "orchestra/testbench": "~3.1",
         "phpunit/phpunit": "~4.7",
         "phpunit/phpcov": "~2.0"
     },
