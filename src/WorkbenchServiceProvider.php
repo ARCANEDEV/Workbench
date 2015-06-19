@@ -40,6 +40,11 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerConfigs();
+        $this->registerServices();
+        // $this->setupStubPath();
+        // $this->registerProviders();
+
         $this->commands([
             // Commands\CreateCommand::class,
             // Commands\GetCommand::class,
@@ -54,5 +59,35 @@ class WorkbenchServiceProvider extends ServiceProvider
     public function provides()
     {
         return ['workbench'];
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Register all package configs
+     */
+    private function registerConfigs()
+    {
+        $configPath = __DIR__ . '/../config/workbench.php';
+
+        $this->mergeConfigFrom($configPath, 'workbench');
+        $this->publishes([
+            $configPath => config_path('workbench.php')
+        ]);
+    }
+
+    /**
+     * Register all services
+     */
+    private function registerServices()
+    {
+        $this->app->bind('workbench', function ($app) {
+            /** @var \Illuminate\Config\Repository $config */
+            $config = $app['config'];
+
+            return new Workbench($app, $config->get('workbench.paths.modules'));
+        });
     }
 }
