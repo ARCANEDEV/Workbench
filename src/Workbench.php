@@ -196,6 +196,7 @@ class Workbench implements WorkbenchInterface, Countable
         if ( ! $this->config('cache.enabled')) {
             return $this->scan();
         }
+        
         return $this->formatCached($this->getCached());
     }
 
@@ -434,7 +435,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get asset path for a specific module.
      *
-     * @param $module
+     * @param  string $module
      *
      * @return string
      */
@@ -446,13 +447,13 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get a specific config data from a configuration file.
      *
-     * @param $key
+     * @param  string $key
      *
      * @return mixed
      */
     public function config($key)
     {
-        return $this->app['config']->get('modules.'.$key);
+        return $this->app['config']->get('workbench.'.$key);
     }
 
     /**
@@ -462,11 +463,33 @@ class Workbench implements WorkbenchInterface, Countable
      */
     public function getUsedStoragePath()
     {
-        if ( ! $this->app['files']->exists($path = storage_path('app/modules'))) {
-            $this->app['files']->makeDirectory($path, 0777, true);
+        if ( ! $this->getFiles()->exists($path = storage_path('app/modules'))) {
+            $this->getFiles()->makeDirectory($path, 0777, true);
         }
 
         return $path . '/modules.used';
+    }
+
+    /**
+     * Get laravel filesystem instance.
+     *
+     * @return \Illuminate\Filesystem\Filesystem
+     */
+    public function getFiles()
+    {
+        return $this->app['files'];
+    }
+
+    /**
+     * Get module used for cli session.
+     *
+     * @return string
+     */
+    public function getUsedNow()
+    {
+        return $this->findOrFail(
+            $this->getFiles()->get($this->getUsedStoragePath())
+        );
     }
 
     /**
@@ -479,17 +502,7 @@ class Workbench implements WorkbenchInterface, Countable
     public function setUsed($name)
     {
         $module = $this->findOrFail($name);
-        $this->app['files']->put($this->getUsedStoragePath(), $module);
-    }
-
-    /**
-     * Get module used for cli session.
-     *
-     * @return string
-     */
-    public function getUsedNow()
-    {
-        return $this->findOrFail($this->app['files']->get($this->getUsedStoragePath()));
+        $this->getFiles()->put($this->getUsedStoragePath(), $module);
     }
 
     /**
@@ -500,16 +513,6 @@ class Workbench implements WorkbenchInterface, Countable
     public function getUsed()
     {
         return $this->getUsedNow();
-    }
-
-    /**
-     * Get laravel filesystem instance.
-     *
-     * @return \Illuminate\Filesystem\Filesystem
-     */
-    public function getFiles()
-    {
-        return $this->app['files'];
     }
 
     /**
