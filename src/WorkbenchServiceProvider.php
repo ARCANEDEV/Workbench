@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench;
 
+use Arcanedev\Support\Stub;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -42,7 +43,7 @@ class WorkbenchServiceProvider extends ServiceProvider
     {
         $this->registerConfigs();
         $this->registerServices();
-        // $this->setupStubPath();
+        $this->registerStubs();
         // $this->registerProviders();
 
         $this->commands([
@@ -89,5 +90,35 @@ class WorkbenchServiceProvider extends ServiceProvider
 
             return new Workbench($app, $config->get('workbench.paths.modules'));
         });
+
+        $this->app->bind(
+            \Arcanedev\Workbench\Contracts\WorkbenchInterface::class,
+            \Arcanedev\Workbench\Workbench::class
+        );
+    }
+
+    /**
+     * Setup stub path.
+     */
+    private function registerStubs()
+    {
+        $this->app->booted(function ($app) {
+            /** @var \Illuminate\Config\Repository $config */
+            $config = $app['config'];
+
+            $path = $config->get('workbench.stubs.enabled') === true
+                ? $config->get('workbench.stubs.path')
+                : __DIR__ . '/../stubs';
+
+            Stub::setBasePath($path);
+        });
+    }
+
+    /**
+     * Register providers.
+     */
+    protected function registerProviders()
+    {
+        $this->app->register(Providers\CommandsServiceProvider::class);
     }
 }
