@@ -2,8 +2,6 @@
 
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class MigrateRefreshCommand
@@ -22,11 +20,15 @@ class MigrateRefreshCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:migrate-refresh';
+    protected $signature = 'module:migrate-refresh
+                            {module? : The name of module will be used.}
+                            {--db? : The database connection to use.}
+                            {--force? : Force the operation to run when in production.}
+                            {--seed? : Indicates if the seed task should be re-run.}';
 
     /**
      * The console command description.
@@ -44,17 +46,17 @@ class MigrateRefreshCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->call('module:migrate-reset', [
             'module'     => $this->getModuleName(),
-            '--database' => $this->option('database'),
+            '--database' => $this->option('db'),
             '--force'    => $this->option('force'),
         ]);
 
         $this->call('module:migrate', [
             'module'     => $this->getModuleName(),
-            '--database' => $this->option('database'),
+            '--database' => $this->option('db'),
             '--force'    => $this->option('force'),
         ]);
 
@@ -63,31 +65,5 @@ class MigrateRefreshCommand extends Command
                 'module' => $this->getModuleName(),
             ]);
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-            ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
-        ];
     }
 }

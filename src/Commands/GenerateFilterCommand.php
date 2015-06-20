@@ -4,7 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class GenerateFilterCommand
@@ -28,12 +27,15 @@ class GenerateFilterCommand extends Command
      * @var string
      */
     protected $argumentName = 'name';
+
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-middleware';
+    protected $signature = 'module:make-middleware
+                            {name : The name of the command.}
+                            {module? : The name of module will be used.}';
     /**
      * The console command description.
      *
@@ -45,19 +47,6 @@ class GenerateFilterCommand extends Command
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the command.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
     /**
      * @return mixed
      */

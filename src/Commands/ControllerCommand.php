@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class ControllerCommand
@@ -29,11 +28,13 @@ class ControllerCommand extends Command
     protected $argumentName = 'controller';
 
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-controller';
+    protected $signature = 'module:make-controller
+                            {controller : The name of the controller class.}
+                            {module? : The name of module will be used.}';
 
     /**
      * The console command description.
@@ -74,19 +75,6 @@ class ControllerCommand extends Command
             'MODULE_NAMESPACE'  => config('workbench.namespace'),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
         ]))->render();
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['controller', InputArgument::REQUIRED, 'The name of the controller class.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
     }
 
     /**

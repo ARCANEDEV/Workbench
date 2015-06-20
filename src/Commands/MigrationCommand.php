@@ -7,8 +7,6 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Exceptions\InvalidMigrationNameException;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class MigrationCommand
@@ -27,11 +25,15 @@ class MigrationCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-migration';
+    protected $signature = 'module:make-migration
+                            {name : The migration name will be created.}
+                            {module? : The name of module will be created.}
+                            {--fields? : The specified fields table.}
+                            {--plain : Create plain migration.}';
 
     /**
      * The console command description.
@@ -40,30 +42,18 @@ class MigrationCommand extends Command
      */
     protected $description = 'Generate a new migration for the specified module.';
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    protected function getArguments()
+    /**
+     * Run the command.
+     */
+    public function handle()
     {
-        return [
-            ['name', InputArgument::REQUIRED, 'The migration name will be created.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be created.'],
-        ];
-    }
+        parent::handle();
 
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['fields', null, InputOption::VALUE_OPTIONAL, 'The specified fields table.', null],
-            ['plain', null, InputOption::VALUE_NONE, 'Create plain migration.'],
-        ];
+        $this->call('optimize');
     }
 
     /**
@@ -157,15 +147,5 @@ class MigrationCommand extends Command
     public function getClass()
     {
         return $this->getClassName();
-    }
-
-    /**
-     * Run the command.
-     */
-    public function fire()
-    {
-        parent::fire();
-
-        $this->call('optimize');
     }
 }

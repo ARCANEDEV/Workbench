@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class EnableCommand
@@ -14,11 +13,12 @@ class EnableCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:enable';
+    protected $signature = 'module:enable
+                            {module : The Module name.}';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class EnableCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $module = workbench()->findOrFail($this->argument('module'));
 
@@ -47,17 +47,5 @@ class EnableCommand extends Command
         else {
             $this->comment("Module [{$module}] has already enabled.");
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::REQUIRED, 'Module name.'],
-        ];
     }
 }

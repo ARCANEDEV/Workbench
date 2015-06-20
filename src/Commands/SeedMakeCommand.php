@@ -4,8 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class SeedMakeCommand
@@ -24,11 +22,15 @@ class SeedMakeCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-seed';
+    protected $signature = 'module:make-seed
+                            {name : The name of seeder will be created.}
+                            {module? : The name of module will be used.}
+                            {--master? : Indicates the seeder will created is a master database seeder.}';
+
     /**
      * The console command description.
      *
@@ -37,39 +39,9 @@ class SeedMakeCommand extends Command
     protected $description = 'Generate new seeder for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of seeder will be created.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            [
-                'master',
-                null,
-                InputOption::VALUE_NONE,
-                'Indicates the seeder will created is a master database seeder.',
-            ],
-        ];
-    }
-
     /**
      * @return mixed
      */

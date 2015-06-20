@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class GenerateRouteProviderCommand
@@ -22,11 +21,12 @@ class GenerateRouteProviderCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:route-provider';
+    protected $signature = 'module:route-provider
+                            {module? : The name of module will be used.}';
 
     /**
      * The command description.
@@ -35,18 +35,10 @@ class GenerateRouteProviderCommand extends Command
      */
     protected $description = 'Generate a new route service provider for the specified module.';
 
-    /**
-     * The command arguments.
-     *
-     * @return array
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
     /**
      * Get template contents.
      *

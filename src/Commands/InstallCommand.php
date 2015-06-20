@@ -3,8 +3,6 @@
 use Arcanedev\Support\Json;
 use Arcanedev\Workbench\Process\Installer;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class InstallCommand
@@ -17,11 +15,18 @@ class InstallCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:install';
+    protected $signature = 'module:install
+                            {name? : The name of module will be installed.}
+                            {version? : The version of module will be installed.}
+                            {--timeout? : The process timeout.}
+                            {--path? : The installation path.}
+                            {--type? : The type of installation.}
+                            {--tree? : Install the module as a git subtree}
+                            {--no-update? : Disables the automatic update of the dependencies.}';
 
     /**
      * The console command description.
@@ -51,7 +56,7 @@ class InstallCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         if (is_null($this->argument('name'))) {
             $this->installFromFile();
@@ -126,34 +131,5 @@ class InstallCommand extends Command
                 'module' => $installer->getModuleName(),
             ]);
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::OPTIONAL, 'The name of module will be installed.'],
-            ['version', InputArgument::OPTIONAL, 'The version of module will be installed.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['timeout', null, InputOption::VALUE_OPTIONAL, 'The process timeout.', null],
-            ['path', null, InputOption::VALUE_OPTIONAL, 'The installation path.', null],
-            ['type', null, InputOption::VALUE_OPTIONAL, 'The type of installation.', null],
-            ['tree', null, InputOption::VALUE_NONE, 'Install the module as a git subtree', null],
-            ['no-update', null, InputOption::VALUE_NONE, 'Disables the automatic update of the dependencies.', null],
-        ];
     }
 }

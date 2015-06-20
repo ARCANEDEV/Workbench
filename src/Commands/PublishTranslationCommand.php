@@ -3,7 +3,6 @@
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\LangPublisher;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class PublishTranslationCommand
@@ -16,11 +15,12 @@ class PublishTranslationCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:publish-translation';
+    protected $signature = 'module:publish-translation
+                            {module? : The name of module will be used.}';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class PublishTranslationCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if ($name = $this->argument('module')) {
             $this->publish($name);
@@ -46,29 +46,20 @@ class PublishTranslationCommand extends Command
         }
     }
 
-    /**
-     * Publish assets from all modules.
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    public function publishAll()
-    {
-        foreach (workbench()->enabled() as $module) {
-            $this->publish($module);
-        }
-    }
-
     /**
      * Publish assets from the specified module.
      *
-     * @param string $name
+     * @param Module|string $name
      */
-    public function publish($name)
+    private function publish($name)
     {
-        if ($name instanceof Module) {
-            $module = $name;
-        }
-        else {
-            $module = workbench()->findOrFail($name);
-        }
+        $module = $name instanceof Module
+            ? $name
+            : workbench()->findOrFail($name);
 
         (new LangPublisher($module))
             ->setWorkbench(workbench())
@@ -79,14 +70,13 @@ class PublishTranslationCommand extends Command
     }
 
     /**
-     * Get the console command arguments.
-     *
-     * @return array
+     * Publish assets from all modules.
      */
-    protected function getArguments()
+    private function publishAll()
     {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
+        foreach (workbench()->enabled() as $module) {
+            /** @var Module $module */
+            $this->publish($module);
+        }
     }
 }

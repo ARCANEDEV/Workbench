@@ -15,11 +15,12 @@ class DumpCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:dump';
+    protected $signature = 'module:dump
+                            {module? : The Module name.}';
 
     /**
      * The console command description.
@@ -37,7 +38,7 @@ class DumpCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->info('Generating optimized autoload modules.');
 
@@ -62,17 +63,5 @@ class DumpCommand extends Command
         $this->line("<comment>Running for module</comment>: {$module}");
         chdir($module->getPath());
         passthru('composer dump -o -n -q');
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'Module name.'],
-        ];
     }
 }

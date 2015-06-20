@@ -3,8 +3,6 @@
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class SeedCommand
@@ -23,11 +21,14 @@ class SeedCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:seed';
+    protected $signature = 'module:seed
+                            {module? : The name of module will be used.}
+                            {--class? : The class name of the root seeder}
+                            {--db? : The database connection to seed.}';
 
     /**
      * The console command description.
@@ -43,14 +44,14 @@ class SeedCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->module = $this->laravel['modules'];
         $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
 
         if ($module) {
             if (workbench()->has($module)) {
-                $this->dbseed($module);
+                $this->dbSeed($module);
 
                 $this->info("Module [$module] seeded.");
             }
@@ -62,12 +63,16 @@ class SeedCommand extends Command
         }
 
         foreach (workbench()->all() as $name) {
-            $this->dbseed($name);
+            $this->dbSeed($name);
         }
 
         $this->info('All modules seeded.');
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Seed the specified module.
      *
@@ -75,13 +80,13 @@ class SeedCommand extends Command
      *
      * @return array
      */
-    protected function dbseed($name)
+    private function dbSeed($name)
     {
         $params = [
             '--class' => $this->option('class') ?: $this->getSeederName($name),
         ];
 
-        if ($option = $this->option('database')) {
+        if ($option = $this->option('db')) {
             $params['--database'] = $option;
         }
 
@@ -95,36 +100,11 @@ class SeedCommand extends Command
      *
      * @return string
      */
-    public function getSeederName($name)
+    private function getSeederName($name)
     {
         $name      = Str::studly($name);
         $namespace = workbench()->config('namespace');
 
         return $namespace . '\\' . $name . '\Database\Seeders\\' . $name . 'DatabaseSeeder';
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['class', null, InputOption::VALUE_OPTIONAL, 'The class name of the root seeder', null],
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to seed.'],
-        ];
     }
 }

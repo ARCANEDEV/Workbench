@@ -3,7 +3,6 @@
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\AssetPublisher;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class PublishCommand
@@ -16,11 +15,12 @@ class PublishCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:publish';
+    protected $signature = 'module:publish
+                            {module? : The name of module will be used.}';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class PublishCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if ($name = $this->argument('module')) {
             $this->publish($name);
@@ -46,22 +46,16 @@ class PublishCommand extends Command
         }
     }
 
-    /**
-     * Publish assets from all modules.
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    public function publishAll()
-    {
-        foreach (workbench()->enabled() as $module) {
-            $this->publish($module);
-        }
-    }
-
     /**
      * Publish assets from the specified module.
      *
      * @param Module|string $name
      */
-    public function publish($name)
+    private function publish($name)
     {
         if ($name instanceof Module) {
             $module = $name;
@@ -79,14 +73,12 @@ class PublishCommand extends Command
     }
 
     /**
-     * Get the console command arguments.
-     *
-     * @return array
+     * Publish assets from all modules.
      */
-    protected function getArguments()
+    private function publishAll()
     {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
+        foreach (workbench()->enabled() as $module) {
+            $this->publish($module);
+        }
     }
 }

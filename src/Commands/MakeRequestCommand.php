@@ -4,7 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class MakeRequestCommand
@@ -30,11 +29,13 @@ class MakeRequestCommand extends Command
     protected $argumentName = 'name';
 
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-request';
+    protected $signature = 'module:make-request
+                            {name : The name of the form request class.}
+                            {module? : The name of module will be used.}';
 
     /**
      * The console command description.
@@ -47,19 +48,6 @@ class MakeRequestCommand extends Command
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the form request class.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
     /**
      * @return mixed
      */

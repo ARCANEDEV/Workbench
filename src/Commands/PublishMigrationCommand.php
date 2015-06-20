@@ -3,7 +3,6 @@
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\MigrationPublisher;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class PublishMigrationCommand
@@ -16,11 +15,12 @@ class PublishMigrationCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:publish-migration';
+    protected $signature = 'module:publish-migration
+                            {module? : The name of module being used.}';
 
     /**
      * The console command description.
@@ -36,7 +36,7 @@ class PublishMigrationCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         if ($name = $this->argument('module')) {
             $module = workbench()->findOrFail($name);
@@ -50,27 +50,20 @@ class PublishMigrationCommand extends Command
         }
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Publish migration for the specified module.
      *
      * @param Module $module
      */
-    public function publish(Module $module)
+    private function publish(Module $module)
     {
         (new MigrationPublisher($module))
             ->setWorkbench(workbench())
             ->setConsole($this)
             ->publish();
-    }
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module being used.'],
-        ];
     }
 }

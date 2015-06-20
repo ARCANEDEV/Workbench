@@ -13,11 +13,11 @@ class SetupCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:setup';
+    protected $signature = 'module:setup';
 
     /**
      * The console command description.
@@ -35,16 +35,20 @@ class SetupCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $this->generateModulesFolder();
         $this->generateAssetsFolder();
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Generate the modules folder.
      */
-    public function generateModulesFolder()
+    private function generateModulesFolder()
     {
         $this->generateDirectory(workbench()->config('paths.modules'),
             'Modules directory created successfully',
@@ -55,7 +59,7 @@ class SetupCommand extends Command
     /**
      * Generate the assets folder.
      */
-    public function generateAssetsFolder()
+    private function generateAssetsFolder()
     {
         $this->generateDirectory(workbench()->config('paths.assets'),
             'Assets directory created successfully',
@@ -66,11 +70,11 @@ class SetupCommand extends Command
     /**
      * Generate the specified directory by given $dir.
      *
-     * @param $dir
-     * @param $success
-     * @param $error
+     * @param string $dir
+     * @param string $success
+     * @param string $error
      */
-    protected function generateDirectory($dir, $success, $error)
+    private function generateDirectory($dir, $success, $error)
     {
         if ( ! app('files')->isDirectory($dir)) {
             app('files')->makeDirectory($dir);

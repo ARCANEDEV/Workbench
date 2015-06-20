@@ -2,8 +2,6 @@
 
 use Arcanedev\Workbench\Generators\ModuleGenerator;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class MakeCommand
@@ -16,11 +14,14 @@ class MakeCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make';
+    protected $signature = 'module:make
+                            {name: The names of modules will be created.}
+                            {--plain? : Generate a plain module (without some resources).}
+                            {--force? : Force the operation to run when module already exist.}';
 
     /**
      * The console command description.
@@ -38,9 +39,9 @@ class MakeCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
-        $names = $this->argument('name');
+        $names = $this->argument();
 
         foreach ($names as $name) {
             (new ModuleGenerator($name))
@@ -52,25 +53,5 @@ class MakeCommand extends Command
                 ->setPlain($this->option('plain'))
                 ->generate();
         }
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::IS_ARRAY, 'The names of modules will be created.'],
-        ];
-    }
-
-    protected function getOptions()
-    {
-        return [
-            ['plain', 'p', InputOption::VALUE_NONE, 'Generate a plain module (without some resources).'],
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when module already exist.'],
-        ];
     }
 }

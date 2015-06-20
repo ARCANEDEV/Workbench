@@ -2,7 +2,6 @@
 
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class UpdateCommand
@@ -21,11 +20,12 @@ class UpdateCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:update';
+    protected $signature = 'module:update
+                            {module? : The name of module will be updated.}';
 
     /**
      * The console command description.
@@ -48,17 +48,5 @@ class UpdateCommand extends Command
         workbench()->update($name = $this->getModuleName());
 
         $this->info("Module [{$name}] updated successfully.");
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be updated.'],
-        ];
     }
 }

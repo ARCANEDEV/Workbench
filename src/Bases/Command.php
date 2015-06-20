@@ -2,8 +2,13 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Exceptions\FileAlreadyExistException;
+use Arcanedev\Workbench\Generators\FileGenerator;
 use Illuminate\Console\Command as IlluminateCommand;
 
+/**
+ * Class Command
+ * @package Arcanedev\Workbench\Bases
+ */
 abstract class Command extends IlluminateCommand
 {
     /* ------------------------------------------------------------------------------------------------
@@ -49,11 +54,25 @@ abstract class Command extends IlluminateCommand
      */
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
+        $path = str_replace('\\', '/', $this->getDestinationFilePath());
+
+        if ( ! app('files')->isDirectory($dir = dirname($path))) {
+            app('files')->makeDirectory($dir, 0777, true);
+        }
+
+        $contents = $this->getTemplateContents();
+
+        try {
+            (new FileGenerator($path, $contents))->generate();
+
+            $this->info("Created : {$path}");
+        }
+        catch (FileAlreadyExistException $e) {
+            $this->error("File : {$path} already exists.");
+        }
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -73,29 +92,6 @@ abstract class Command extends IlluminateCommand
      * @return string
      */
     abstract protected function getDestinationFilePath();
-
-    /**
-     * Execute the console command.
-     */
-    public function fire()
-    {
-        $path = str_replace('\\', '/', $this->getDestinationFilePath());
-
-        if ( ! $this->laravel['files']->isDirectory($dir = dirname($path))) {
-            $this->laravel['files']->makeDirectory($dir, 0777, true);
-        }
-
-        $contents = $this->getTemplateContents();
-
-        try {
-            (new FileGenerator($path, $contents))->generate();
-
-            $this->info("Created : {$path}");
-        }
-        catch (FileAlreadyExistException $e) {
-            $this->error("File : {$path} already exists.");
-        }
-    }
 
     /**
      * Get class name.

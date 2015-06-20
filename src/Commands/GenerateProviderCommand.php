@@ -4,8 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class GenerateProviderCommand
@@ -31,11 +29,14 @@ class GenerateProviderCommand extends Command
     protected $argumentName = 'name';
 
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-provider';
+    protected $signature = 'module:make-provider
+                            {name : The service provider name.}
+                            {module? : The name of module will be used.}
+                            {--master=scaffold : Indicates the master service provider}';
 
     /**
      * The console command description.
@@ -44,37 +45,16 @@ class GenerateProviderCommand extends Command
      */
     protected $description = 'Generate a new service provider for the specified module.';
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The service provider name.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['master', null, InputOption::VALUE_NONE, 'Indicates the master service provider', null],
-        ];
-    }
-
     /**
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        $stub   = $this->option('master') ? 'scaffold/provider' : 'provider';
+        $stub   = ($this->option('master') == 'scaffold' ? 'scaffold/' : '') . 'provider';
         $module = workbench()->findOrFail($this->getModuleName());
 
         return (new Stub('/'.$stub.'.stub', [

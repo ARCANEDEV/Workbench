@@ -4,8 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class ModelCommand
@@ -31,11 +29,14 @@ class ModelCommand extends Command
     protected $argumentName = 'model';
 
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-model';
+    protected $signature = 'module:make-model
+                            {model : The name of model will be created.}
+                            {module? :The name of module will be used.}
+                            {--fillable : The fillable attributes.}';
 
     /**
      * The console command description.
@@ -44,31 +45,10 @@ class ModelCommand extends Command
      */
     protected $description = 'Generate new model for the specified module.';
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    protected function getArguments()
-    {
-        return [
-            ['model', InputArgument::REQUIRED, 'The name of model will be created.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['fillable', null, InputOption::VALUE_OPTIONAL, 'The fillable attributes.', null],
-        ];
-    }
-
     /**
      * @return mixed
      */

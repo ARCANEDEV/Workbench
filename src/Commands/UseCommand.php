@@ -2,7 +2,6 @@
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class UseCommand
@@ -15,11 +14,12 @@ class UseCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:use';
+    protected $signature = 'module:use
+                            {module? : The name of module will be used.}';
 
     /**
      * The console command description.
@@ -37,7 +37,7 @@ class UseCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         $module = Str::studly($this->argument('module'));
         if ( ! workbench()->has($module)) {
@@ -47,17 +47,5 @@ class UseCommand extends Command
 
         workbench()->setUsed($module);
         $this->info("Module [{$module}] used successfully.");
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::REQUIRED, 'The name of module will be used.'],
-        ];
     }
 }

@@ -2,8 +2,6 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class MigrateCommand
@@ -16,11 +14,17 @@ class MigrateCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:migrate';
+    protected $signature = 'module:migrate
+                            {module? : The name of module will be used.}
+                            {--dir=asc : The direction of ordering.}
+                            {--db? : The database connection to use.}
+                            {--pretend? : Dump the SQL queries that would be run.}
+                            {--force? : Force the operation to run when in production.}
+                            {--seed? : Indicates if the seed task should be re-run.}';
 
     /**
      * The console command description.
@@ -36,7 +40,7 @@ class MigrateCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->module = $this->laravel['modules'];
         $name = $this->argument('module');
@@ -65,7 +69,7 @@ class MigrateCommand extends Command
 
         $this->call('migrate', [
             '--path'     => $this->getPath($module),
-            '--database' => $this->option('database'),
+            '--database' => $this->option('db'),
             '--pretend'  => $this->option('pretend'),
             '--force'    => $this->option('force'),
         ]);
@@ -87,33 +91,5 @@ class MigrateCommand extends Command
         $path = $module->getExtraPath(config('modules.paths.generator.migration'));
 
         return str_replace(base_path(), '', $path);
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['direction', 'd', InputOption::VALUE_OPTIONAL, 'The direction of ordering.', 'asc'],
-            ['database', null, InputOption::VALUE_OPTIONAL, 'The database connection to use.'],
-            ['pretend', null, InputOption::VALUE_NONE, 'Dump the SQL queries that would be run.'],
-            ['force', null, InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-            ['seed', null, InputOption::VALUE_NONE, 'Indicates if the seed task should be re-run.'],
-        ];
     }
 }

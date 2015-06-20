@@ -4,8 +4,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * Class ConsoleCommand
@@ -31,11 +29,14 @@ class ConsoleCommand extends Command
     protected $argumentName = 'name';
 
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'module:make-command';
+    protected $signature = 'module:make-command
+                            {name : The name of the command.}
+                            {module? : The name of module will be used.}
+                            {--queue : The terminal command that should be assigned.}';
 
     /**
      * The console command description.
@@ -44,31 +45,10 @@ class ConsoleCommand extends Command
      */
     protected $description = 'Generate new Artisan command for the specified module.';
 
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the command.'],
-            ['module', InputArgument::OPTIONAL, 'The name of module will be used.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['command', null, InputOption::VALUE_OPTIONAL, 'The terminal command that should be assigned.', null],
-        ];
-    }
-
     /**
      * @return mixed
      */
