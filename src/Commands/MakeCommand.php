@@ -19,9 +19,9 @@ class MakeCommand extends Command
      * @var string
      */
     protected $signature = 'module:make
-                            {name: The names of modules will be created.}
-                            {--plain? : Generate a plain module (without some resources).}
-                            {--force? : Force the operation to run when module already exist.}';
+                            {name : The names of modules will be created.}
+                            {--plain : Generate a plain module (without some resources).}
+                            {--force : Force the operation to run when module already exist.}';
 
     /**
      * The console command description.

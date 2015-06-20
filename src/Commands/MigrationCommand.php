@@ -32,7 +32,7 @@ class MigrationCommand extends Command
     protected $signature = 'module:make-migration
                             {name : The migration name will be created.}
                             {module? : The name of module will be created.}
-                            {--fields? : The specified fields table.}
+                            {--fields= : The specified fields table.}
                             {--plain : Create plain migration.}';
 
     /**

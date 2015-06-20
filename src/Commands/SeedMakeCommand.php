@@ -29,7 +29,7 @@ class SeedMakeCommand extends Command
     protected $signature = 'module:make-seed
                             {name : The name of seeder will be created.}
                             {module? : The name of module will be used.}
-                            {--master? : Indicates the seeder will created is a master database seeder.}';
+                            {--master : Indicates the seeder will created is a master database seeder.}';
 
     /**
      * The console command description.

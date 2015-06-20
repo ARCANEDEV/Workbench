@@ -26,9 +26,9 @@ class MigrateRefreshCommand extends Command
      */
     protected $signature = 'module:migrate-refresh
                             {module? : The name of module will be used.}
-                            {--db? : The database connection to use.}
-                            {--force? : Force the operation to run when in production.}
-                            {--seed? : Indicates if the seed task should be re-run.}';
+                            {--db= : The database connection to use.}
+                            {--force : Force the operation to run when in production.}
+                            {--seed : Indicates if the seed task should be re-run.}';
 
     /**
      * The console command description.

@@ -19,7 +19,7 @@ class ListCommand extends Command
      * @var string
      */
     protected $signature = 'module:list
-                            {--only? : Types of modules will be displayed.}
+                            {--only= : Types of modules will be displayed.}
                             {--dir=asc : The direction of ordering.}';
 
     /**
@@ -66,24 +66,31 @@ class ListCommand extends Command
         return $rows;
     }
 
-    protected function getModules()
+    /**
+     * Get modules.
+     *
+     * @return array
+     */
+    private function getModules()
     {
-        switch ($this->option('only')) {
+        if ( ! $this->option('only')) {
+            return workbench()->all();
+        }
+
+        $choice = $this->anticipate('Select only modules that are ?', ['enabled', 'disabled', 'ordered']);
+        switch ($choice) {
             case 'enabled':
                 return workbench()->getByStatus(1);
-                // no break
+            // no break
 
             case 'disabled':
                 return workbench()->getByStatus(0);
-                // no break
-
-            case 'ordered':
-                return workbench()->getOrdered($this->option('dir'));
-                // no break
+            // no break
 
             default:
-                return workbench()->all();
-                // no break
+            case 'ordered':
+                return workbench()->getOrdered($this->option('dir'));
+            // no break
         }
     }
 }

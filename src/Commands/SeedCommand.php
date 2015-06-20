@@ -27,8 +27,8 @@ class SeedCommand extends Command
      */
     protected $signature = 'module:seed
                             {module? : The name of module will be used.}
-                            {--class? : The class name of the root seeder}
-                            {--db? : The database connection to seed.}';
+                            {--class= : The class name of the root seeder}
+                            {--db= : The database connection to seed.}';
 
     /**
      * The console command description.

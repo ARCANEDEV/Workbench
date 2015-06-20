@@ -35,7 +35,7 @@ class ModelCommand extends Command
      */
     protected $signature = 'module:make-model
                             {model : The name of model will be created.}
-                            {module? :The name of module will be used.}
+                            {module? : The name of module will be used.}
                             {--fillable : The fillable attributes.}';
 
     /**

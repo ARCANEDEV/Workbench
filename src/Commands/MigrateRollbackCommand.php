@@ -29,9 +29,9 @@ class MigrateRollbackCommand extends Command
      */
     protected $signature = 'module:migrate-rollback
                             {module? : The name of module will be used.}
-                            {--db? : The database connection to use.}
-                            {--force? : Force the operation to run when in production.}
-                            {--pretend? : Dump the SQL queries that would be run.}';
+                            {--db= : The database connection to use.}
+                            {--force : Force the operation to run when in production.}
+                            {--pretend : Dump the SQL queries that would be run.}';
 
     /**
      * The console command description.

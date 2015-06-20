@@ -22,11 +22,11 @@ class InstallCommand extends Command
     protected $signature = 'module:install
                             {name? : The name of module will be installed.}
                             {version? : The version of module will be installed.}
-                            {--timeout? : The process timeout.}
-                            {--path? : The installation path.}
-                            {--type? : The type of installation.}
-                            {--tree? : Install the module as a git subtree}
-                            {--no-update? : Disables the automatic update of the dependencies.}';
+                            {--timeout= : The process timeout.}
+                            {--path= : The installation path.}
+                            {--type= : The type of installation.}
+                            {--tree= : Install the module as a git subtree}
+                            {--no-update : Disables the automatic update of the dependencies.}';
 
     /**
      * The console command description.
@@ -72,10 +72,14 @@ class InstallCommand extends Command
         );
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Install modules from modules.json file.
      */
-    protected function installFromFile()
+    private function installFromFile()
     {
         if ( ! file_exists($path = base_path('modules.json'))) {
             $this->error("File 'modules.json' does not exist in your project root.");
@@ -104,7 +108,7 @@ class InstallCommand extends Command
      * @param string $type
      * @param bool   $tree
      */
-    protected function install($name, $version = 'dev-master', $type = 'composer', $tree = false)
+    private function install($name, $version = 'dev-master', $type = 'composer', $tree = false)
     {
         $installer = new Installer(
             $name,

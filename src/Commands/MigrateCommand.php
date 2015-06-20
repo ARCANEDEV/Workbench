@@ -20,11 +20,11 @@ class MigrateCommand extends Command
      */
     protected $signature = 'module:migrate
                             {module? : The name of module will be used.}
+                            {--db= : The database connection to use.}
                             {--dir=asc : The direction of ordering.}
-                            {--db? : The database connection to use.}
-                            {--pretend? : Dump the SQL queries that would be run.}
-                            {--force? : Force the operation to run when in production.}
-                            {--seed? : Indicates if the seed task should be re-run.}';
+                            {--force : Force the operation to run when in production.}
+                            {--pretend : Dump the SQL queries that would be run.}
+                            {--seed : Indicates if the seed task should be re-run.}';
 
     /**
      * The console command description.
