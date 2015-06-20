@@ -6,7 +6,6 @@ use Arcanedev\Workbench\Workbench;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 
 class ModuleGenerator extends Generator
 {
@@ -109,13 +108,13 @@ class ModuleGenerator extends Generator
     }
 
     /**
-     * Get the name of module will created. By default in studly case.
+     * Get the name of module will created.
      *
      * @return string
      */
     public function getName()
     {
-        return Str::studly($this->name);
+        return str_slug($this->name);
     }
 
     /**

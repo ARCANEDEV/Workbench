@@ -9,7 +9,6 @@ use Arcanedev\Workbench\Process\Updater;
 use Countable;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 
 class Workbench implements WorkbenchInterface, Countable
 {
@@ -428,7 +427,7 @@ class Workbench implements WorkbenchInterface, Countable
             return $this->findOrFail($module)->getPath() . '/';
         }
         catch (ModuleNotFoundException $e) {
-            return $this->getPath() . '/' . Str::studly($module) . '/';
+            return $this->getPath() . '/' . str_slug($module) . '/';
         }
     }
 
