@@ -196,7 +196,7 @@ class Workbench implements WorkbenchInterface, Countable
         if ( ! $this->config('cache.enabled')) {
             return $this->scan();
         }
-        
+
         return $this->formatCached($this->getCached());
     }
 
