@@ -37,8 +37,13 @@ class SetupCommand extends Command
      */
     public function handle()
     {
-        $this->generateModulesFolder();
-        $this->generateAssetsFolder();
+        try {
+            $this->makeModulesFolder();
+            $this->makeAssetsFolder();
+        }
+        catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -48,7 +53,7 @@ class SetupCommand extends Command
     /**
      * Generate the modules folder.
      */
-    private function generateModulesFolder()
+    private function makeModulesFolder()
     {
         $this->generateDirectory(workbench()->config('paths.modules'),
             'Modules directory created successfully',
@@ -59,7 +64,7 @@ class SetupCommand extends Command
     /**
      * Generate the assets folder.
      */
-    private function generateAssetsFolder()
+    private function makeAssetsFolder()
     {
         $this->generateDirectory(workbench()->config('paths.assets'),
             'Assets directory created successfully',
@@ -76,13 +81,11 @@ class SetupCommand extends Command
      */
     private function generateDirectory($dir, $success, $error)
     {
-        if ( ! app('files')->isDirectory($dir)) {
-            app('files')->makeDirectory($dir);
-            $this->info($success);
-
-            return;
+        if (app('files')->isDirectory($dir)) {
+            throw new Exception($error);
         }
 
-        $this->error($error);
+        app('files')->makeDirectory($dir);
+        $this->info($success);
     }
 }
