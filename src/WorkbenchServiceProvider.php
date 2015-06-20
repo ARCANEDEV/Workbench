@@ -44,7 +44,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         $this->registerConfigs();
         $this->registerServices();
         $this->registerStubs();
-        // $this->registerProviders();
+        $this->registerProviders();
 
         $this->commands([
             // Commands\CreateCommand::class,

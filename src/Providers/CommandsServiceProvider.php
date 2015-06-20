@@ -1,5 +1,31 @@
 <?php namespace Arcanedev\Workbench\Providers;
 
+use Arcanedev\Workbench\Commands\ConsoleCommand;
+use Arcanedev\Workbench\Commands\ControllerCommand;
+use Arcanedev\Workbench\Commands\DisableCommand;
+use Arcanedev\Workbench\Commands\DumpCommand;
+use Arcanedev\Workbench\Commands\EnableCommand;
+use Arcanedev\Workbench\Commands\GenerateFilterCommand;
+use Arcanedev\Workbench\Commands\GenerateProviderCommand;
+use Arcanedev\Workbench\Commands\GenerateRouteProviderCommand;
+use Arcanedev\Workbench\Commands\InstallCommand;
+use Arcanedev\Workbench\Commands\ListCommand;
+use Arcanedev\Workbench\Commands\MakeCommand;
+use Arcanedev\Workbench\Commands\MakeRequestCommand;
+use Arcanedev\Workbench\Commands\MigrateCommand;
+use Arcanedev\Workbench\Commands\MigrateRefreshCommand;
+use Arcanedev\Workbench\Commands\MigrateResetCommand;
+use Arcanedev\Workbench\Commands\MigrateRollbackCommand;
+use Arcanedev\Workbench\Commands\MigrationCommand;
+use Arcanedev\Workbench\Commands\ModelCommand;
+use Arcanedev\Workbench\Commands\PublishCommand;
+use Arcanedev\Workbench\Commands\PublishMigrationCommand;
+use Arcanedev\Workbench\Commands\PublishTranslationCommand;
+use Arcanedev\Workbench\Commands\SeedCommand;
+use Arcanedev\Workbench\Commands\SeedMakeCommand;
+use Arcanedev\Workbench\Commands\SetupCommand;
+use Arcanedev\Workbench\Commands\UpdateCommand;
+use Arcanedev\Workbench\Commands\UseCommand;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -43,32 +69,32 @@ class CommandsServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
-            \Arcanedev\Workbench\Commands\MakeCommand::class,
-            \Arcanedev\Workbench\Commands\ConsoleCommand::class,
-            \Arcanedev\Workbench\Commands\ControllerCommand::class,
-            \Arcanedev\Workbench\Commands\DisableCommand::class,
-            \Arcanedev\Workbench\Commands\EnableCommand::class,
-            \Arcanedev\Workbench\Commands\GenerateFilterCommand::class,
-            \Arcanedev\Workbench\Commands\GenerateProviderCommand::class,
-            \Arcanedev\Workbench\Commands\GenerateRouteProviderCommand::class,
-            \Arcanedev\Workbench\Commands\InstallCommand::class,
-            \Arcanedev\Workbench\Commands\ListCommand::class,
-            \Arcanedev\Workbench\Commands\MigrateCommand::class,
-            \Arcanedev\Workbench\Commands\MigrateRefreshCommand::class,
-            \Arcanedev\Workbench\Commands\MigrateResetCommand::class,
-            \Arcanedev\Workbench\Commands\MigrateRollbackCommand::class,
-            \Arcanedev\Workbench\Commands\MigrationCommand::class,
-            \Arcanedev\Workbench\Commands\ModelCommand::class,
-            \Arcanedev\Workbench\Commands\PublishCommand::class,
-            \Arcanedev\Workbench\Commands\PublishMigrationCommand::class,
-            \Arcanedev\Workbench\Commands\PublishTranslationCommand::class,
-            \Arcanedev\Workbench\Commands\SeedCommand::class,
-            \Arcanedev\Workbench\Commands\SeedMakeCommand::class,
-            \Arcanedev\Workbench\Commands\SetupCommand::class,
-            \Arcanedev\Workbench\Commands\UpdateCommand::class,
-            \Arcanedev\Workbench\Commands\UseCommand::class,
-            \Arcanedev\Workbench\Commands\DumpCommand::class,
-            \Arcanedev\Workbench\Commands\MakeRequestCommand::class,
+            ConsoleCommand::class,
+            ControllerCommand::class,
+            DisableCommand::class,
+            DumpCommand::class,
+            EnableCommand::class,
+            GenerateFilterCommand::class,
+            GenerateProviderCommand::class,
+            GenerateRouteProviderCommand::class,
+            InstallCommand::class,
+            ListCommand::class,
+            MakeCommand::class,
+            MakeRequestCommand::class,
+            MigrateCommand::class,
+            MigrateRefreshCommand::class,
+            MigrateResetCommand::class,
+            MigrateRollbackCommand::class,
+            MigrationCommand::class,
+            ModelCommand::class,
+            PublishCommand::class,
+            PublishMigrationCommand::class,
+            PublishTranslationCommand::class,
+            SeedCommand::class,
+            SeedMakeCommand::class,
+            SetupCommand::class,
+            UpdateCommand::class,
+            UseCommand::class,
         ];
     }
 }
