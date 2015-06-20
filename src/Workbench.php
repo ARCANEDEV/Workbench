@@ -612,22 +612,26 @@ class Workbench implements WorkbenchInterface, Countable
      *
      * @param string $name
      *
-     * @return bool
+     * @return self
      */
     public function enable($name)
     {
-        return $this->findOrFail($name)->enable();
+        $this->findOrFail($name)->enable();
+
+        return $this;
     }
 
     /**
      * Disabling a specific module.
      *
-     * @param string $name
+     * @param  string $name
      *
-     * @return bool
+     * @return self
      */
     public function disable($name)
     {
-        return $this->findOrFail($name)->disable();
+        $this->findOrFail($name)->disable();
+
+        return $this;
     }
 }
