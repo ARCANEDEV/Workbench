@@ -46,7 +46,6 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        $this->module = $this->laravel['modules'];
         $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
 
         if ($module) {
