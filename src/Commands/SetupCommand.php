@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 
 /**
@@ -41,7 +42,7 @@ class SetupCommand extends Command
             $this->makeModulesFolder();
             $this->makeAssetsFolder();
         }
-        catch (\Exception $e) {
+        catch (Exception $e) {
             $this->error($e->getMessage());
         }
     }
@@ -75,9 +76,11 @@ class SetupCommand extends Command
     /**
      * Generate the specified directory by given $dir.
      *
-     * @param string $dir
-     * @param string $success
-     * @param string $error
+     * @param  string $dir
+     * @param  string $success
+     * @param  string $error
+     *
+     * @throws Exception
      */
     private function generateDirectory($dir, $success, $error)
     {
