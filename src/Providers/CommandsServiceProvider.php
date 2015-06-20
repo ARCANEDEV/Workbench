@@ -6,7 +6,7 @@ use Arcanedev\Workbench\Commands\DisableCommand;
 use Arcanedev\Workbench\Commands\DumpCommand;
 use Arcanedev\Workbench\Commands\EnableCommand;
 use Arcanedev\Workbench\Commands\GenerateFilterCommand;
-use Arcanedev\Workbench\Commands\GenerateProviderCommand;
+use Arcanedev\Workbench\Commands\MakeProviderCommand;
 use Arcanedev\Workbench\Commands\GenerateRouteProviderCommand;
 use Arcanedev\Workbench\Commands\InstallCommand;
 use Arcanedev\Workbench\Commands\ListCommand;
@@ -75,11 +75,11 @@ class CommandsServiceProvider extends ServiceProvider
             DumpCommand::class,
             EnableCommand::class,
             GenerateFilterCommand::class,
-            GenerateProviderCommand::class,
             GenerateRouteProviderCommand::class,
             InstallCommand::class,
             ListCommand::class,
             MakeCommand::class,
+            MakeProviderCommand::class,
             MakeRequestCommand::class,
             MigrateCommand::class,
             MigrateRefreshCommand::class,
