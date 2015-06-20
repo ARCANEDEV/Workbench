@@ -84,10 +84,10 @@ class ModuleGenerator extends Generator
         Console $console       = null
     ) {
         $this->setName($name);
-        $this->setConfig($config);
-        $this->setFilesystem($filesystem);
-        $this->setConsole($console);
-        $this->setWorkbench($workbench);
+        if ($workbench)  $this->setWorkbench($workbench);
+        if ($config)     $this->setConfig($config);
+        if ($filesystem) $this->setFilesystem($filesystem);
+        if ($console)    $this->setConsole($console);
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -296,10 +296,10 @@ class ModuleGenerator extends Generator
     /**
      * Generate the folders.
      */
-    public function generateFolders()
+    private function generateFolders()
     {
         foreach ($this->getFolders() as $folder) {
-            $path = $this->workbench->getModulePath($this->getName()).'/'.$folder;
+            $path = $this->workbench->getModulePath($this->getName()) . '/' . $folder;
             $this->filesystem->makeDirectory($path, 0755, true);
             $this->generateGitKeep($path);
         }
@@ -310,7 +310,7 @@ class ModuleGenerator extends Generator
      *
      * @param string $path
      */
-    public function generateGitKeep($path)
+    private function generateGitKeep($path)
     {
         $this->filesystem->put($path . '/.gitkeep', '');
     }
