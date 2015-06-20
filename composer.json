@@ -14,6 +14,7 @@
     "require": {
         "php": ">=5.5.9",
         "arcanedev/composer": "~1.0",
+        "arcanedev/generators": "~1.0",
         "arcanedev/support": "~1.0",
         "guzzlehttp/guzzle": "~6.0"
     },
@@ -25,7 +26,8 @@
     "autoload": {
         "psr-4": {
             "Arcanedev\\Workbench\\": "src/"
-        }
+        },
+        "files": ["helpers.php"]
     },
     "autoload-dev": {
         "psr-4": {
