@@ -163,6 +163,28 @@ class Workbench implements WorkbenchInterface, Countable
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Boot the modules.
+     */
+    public function boot()
+    {
+        foreach ($this->getOrdered() as $module) {
+            /** @var Module $module */
+            $module->boot();
+        }
+    }
+
+    /**
+     * Register the modules.
+     */
+    public function register()
+    {
+        foreach ($this->getOrdered() as $module) {
+            /** @var Module $module */
+            $module->register();
+        }
+    }
+
+    /**
      * Get & scan all modules.
      *
      * @return array
@@ -335,28 +357,6 @@ class Workbench implements WorkbenchInterface, Countable
     }
 
     /**
-     * Register the modules.
-     */
-    public function register()
-    {
-        foreach ($this->getOrdered() as $module) {
-            /** @var Module $module */
-            $module->register();
-        }
-    }
-
-    /**
-     * Boot the modules.
-     */
-    public function boot()
-    {
-        foreach ($this->getOrdered() as $module) {
-            /** @var Module $module */
-            $module->boot();
-        }
-    }
-
-    /**
      * Find a specific module.
      *
      * @param  string $name
@@ -447,13 +447,16 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get a specific config data from a configuration file.
      *
-     * @param  string $key
+     * @param  string|null $key
+     * @param  mixed|null  $default
      *
      * @return mixed
      */
-    public function config($key)
+    public function config($key = null, $default = null)
     {
-        return $this->app['config']->get('workbench.'.$key);
+        $key = 'workbench' . (is_null($key) ? '' : '.' . $key);
+
+        return $this->app['config']->get($key, $default);
     }
 
     /**
