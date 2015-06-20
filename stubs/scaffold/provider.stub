@@ -1,0 +1,107 @@
+<?php namespace $NAMESPACE$;
+
+use Illuminate\Support\ServiceProvider;
+
+class $CLASS$ extends ServiceProvider
+{
+    /* ------------------------------------------------------------------------------------------------
+     |  Properties
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Boot the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerConfig();
+        $this->registerTranslations();
+        $this->registerViews();
+    }
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [];
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Register config.
+     *
+     * @return void
+     */
+    private function registerConfig()
+    {
+        $path = __DIR__ . '/../Config/config.php';
+
+        $this->publishes([
+            $path => config_path('$LOWER_NAME$.php'),
+        ]);
+
+        $this->mergeConfigFrom($path, '$LOWER_NAME$');
+    }
+
+    /**
+     * Register views.
+     *
+     * @return void
+     */
+    private function registerViews()
+    {
+        $viewPath = base_path('views/modules/$LOWER_NAME$');
+
+        $sourcePath = __DIR__.'/../Resources/views';
+
+        $this->publishes([
+            $sourcePath => $viewPath
+        ]);
+
+        $this->loadViewsFrom([$viewPath, $sourcePath], '$LOWER_NAME$');
+    }
+
+    /**
+     * Register translations.
+     *
+     * @return void
+     */
+    private function registerTranslations()
+    {
+        $langPath = base_path('resources/lang/modules/$LOWER_NAME$');
+
+        $this->loadTranslationsFrom(
+            is_dir($langPath) ? $langPath : __DIR__ . '/../Resources/lang',
+            '$LOWER_NAME$'
+        );
+    }
+
+}
