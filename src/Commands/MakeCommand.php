@@ -19,7 +19,7 @@ class MakeCommand extends Command
      * @var string
      */
     protected $signature = 'module:make
-                            {name : The names of modules will be created.}
+                            {names : The names of modules will be created (Comma-separated names).}
                             {--plain : Generate a plain module (without some resources).}
                             {--force : Force the operation to run when module already exist.}';
 
@@ -41,7 +41,7 @@ class MakeCommand extends Command
      */
     public function handle()
     {
-        $names = $this->argument();
+        $names = array_map('trim', explode(',', $this->argument('names')));
 
         foreach ($names as $name) {
             (new ModuleGenerator($name))
