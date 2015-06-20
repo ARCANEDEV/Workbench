@@ -6,10 +6,10 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Support\Str;
 
 /**
- * Class GenerateProviderCommand
+ * Class MakeProviderCommand
  * @package Arcanedev\Workbench\Commands
  */
-class GenerateProviderCommand extends Command
+class MakeProviderCommand extends Command
 {
     /* ------------------------------------------------------------------------------------------------
      |  Traits
