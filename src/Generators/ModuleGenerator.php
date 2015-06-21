@@ -394,21 +394,31 @@ class ModuleGenerator extends Generator
 
         $keys     = $replacements[$stub];
 
-        $replaces = array_map(function($key) {
-            $method = 'get' . ucfirst(studly_case(strtolower($key))) . 'Replacement';
-
-            return method_exists($this, $method)
+        $replaces = array_map(function ($key) {
+            return method_exists($this, $method = $this->getReplacementMethod($key))
                 ? call_user_func([$this, $method])
                 : null;
         }, $keys);
 
-        return $replaces;
+        return array_filter(array_combine($keys, $replaces));
     }
 
     /* ------------------------------------------------------------------------------------------------
      |  Replacement Functions
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Get replacement method name
+     *
+     * @param  string $name
+     *
+     * @return string
+     */
+    private function getReplacementMethod($name)
+    {
+        return 'get' . ucfirst(str_studly(strtolower($name))) . 'Replacement';
+    }
+
     /**
      * Get the module name in lower case.
      *
@@ -426,7 +436,7 @@ class ModuleGenerator extends Generator
      */
     protected function getStudlyNameReplacement()
     {
-        return $this->getName();
+        return str_studly($this->getName());
     }
 
     /**
