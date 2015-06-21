@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class SeedMakeCommand
@@ -55,7 +54,9 @@ class SeedMakeCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -74,6 +75,6 @@ class SeedMakeCommand extends Command
     {
         $end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
 
-        return Str::studly($this->argument('name')).$end;
+        return str_studly($this->argument('name')) . $end;
     }
 }

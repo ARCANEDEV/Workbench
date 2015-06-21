@@ -51,6 +51,16 @@ class PublishCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Publish assets from all modules.
+     */
+    private function publishAll()
+    {
+        foreach (workbench()->enabled() as $module) {
+            $this->publish($module);
+        }
+    }
+
+    /**
      * Publish assets from the specified module.
      *
      * @param Module|string $name
@@ -70,15 +80,5 @@ class PublishCommand extends Command
             ->publish();
 
         $this->line("<info>Published</info>: {$module->getStudlyName()}");
-    }
-
-    /**
-     * Publish assets from all modules.
-     */
-    private function publishAll()
-    {
-        foreach (workbench()->enabled() as $module) {
-            $this->publish($module);
-        }
     }
 }

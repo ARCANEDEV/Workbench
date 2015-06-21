@@ -64,7 +64,9 @@ class ConsoleCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -95,7 +97,7 @@ class ConsoleCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return 'Commands';
     }

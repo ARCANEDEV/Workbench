@@ -4,7 +4,6 @@ use Arcanedev\Support\Json;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Str;
 
 /**
  * Class Module
@@ -97,7 +96,7 @@ class Module extends ServiceProvider
      */
     public function getStudlyName()
     {
-        return Str::studly($this->name);
+        return str_studly($this->name);
     }
 
     /**

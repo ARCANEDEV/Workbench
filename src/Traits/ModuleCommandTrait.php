@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench\Traits;
 use Arcanedev\Workbench\Entities\Module;
+use Illuminate\Console\Command;
 
 /**
  * Trait ModuleCommandTrait
@@ -14,10 +15,11 @@ trait ModuleCommandTrait
      */
     public function getModuleName()
     {
-        $module = $this->argument('module') ?: $this->laravel['modules']->getUsedNow();
+        /** @var Command $this */
+        $module = $this->argument('module') ?: workbench()->getUsedNow();
 
         /** @var Module $module */
-        $module = $this->laravel['modules']->findOrFail($module);
+        $module = workbench()->findOrFail($module);
 
         return $module->getStudlyName();
     }

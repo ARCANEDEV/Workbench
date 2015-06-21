@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class MakeRequestCommand
@@ -45,11 +44,13 @@ class MakeRequestCommand extends Command
     protected $description = 'Generate new form request class for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
@@ -65,7 +66,9 @@ class MakeRequestCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -76,11 +79,13 @@ class MakeRequestCommand extends Command
     }
 
     /**
+     * Get file name
+     *
      * @return string
      */
     private function getFileName()
     {
-        return Str::studly($this->argument('name'));
+        return str_studly($this->argument('name'));
     }
 
     /**
@@ -88,7 +93,7 @@ class MakeRequestCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return 'Requests';
     }

@@ -2,7 +2,6 @@
 
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 /**
  * Class SeedCommand
@@ -46,7 +45,7 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        $module = Str::studly($this->argument('module')) ?: $this->getModuleName();
+        $module = str_studly($this->argument('module')) ?: $this->getModuleName();
 
         if ($module) {
             if (workbench()->has($module)) {
@@ -101,7 +100,7 @@ class SeedCommand extends Command
      */
     private function getSeederName($name)
     {
-        $name      = Str::studly($name);
+        $name      = str_studly($name);
         $namespace = workbench()->config('namespace');
 
         return $namespace . '\\' . $name . '\Database\Seeders\\' . $name . 'DatabaseSeeder';

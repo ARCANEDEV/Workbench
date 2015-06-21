@@ -6,7 +6,6 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Exceptions\InvalidMigrationNameException;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class MigrationCommand
@@ -56,16 +55,10 @@ class MigrationCommand extends Command
         $this->call('optimize');
     }
 
-    /**
-     * Get schema parser.
-     *
-     * @return SchemaParser
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
      */
-    public function getSchemaParser()
-    {
-        return new SchemaParser($this->option('fields'));
-    }
-
     /**
      * @throws InvalidMigrationNameException
      *
@@ -110,7 +103,9 @@ class MigrationCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -118,6 +113,16 @@ class MigrationCommand extends Command
         $generatorPath = workbench()->config('paths.generator.migration');
 
         return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+    }
+
+    /**
+     * Get class name.
+     *
+     * @return string
+     */
+    protected function getClass()
+    {
+        return str_studly($this->argument('name'));
     }
 
     /**
@@ -129,23 +134,22 @@ class MigrationCommand extends Command
     }
 
     /**
-     * @return array|string
+     * Get schema parser.
+     *
+     * @return SchemaParser
+     */
+    private function getSchemaParser()
+    {
+        return new SchemaParser($this->option('fields'));
+    }
+
+    /**
+     * Get schema name
+     *
+     * @return string
      */
     private function getSchemaName()
     {
         return $this->argument('name');
-    }
-
-    /**
-     * @return string
-     */
-    private function getClassName()
-    {
-        return Str::studly($this->argument('name'));
-    }
-
-    public function getClass()
-    {
-        return $this->getClassName();
     }
 }

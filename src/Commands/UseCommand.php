@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Str;
 
 /**
  * Class UseCommand
@@ -39,7 +38,7 @@ class UseCommand extends Command
      */
     public function handle()
     {
-        $module = Str::studly($this->argument('module'));
+        $module = str_studly($this->argument('module'));
         if ( ! workbench()->has($module)) {
             $this->error("Module [{$module}] does not exists.");
             return;

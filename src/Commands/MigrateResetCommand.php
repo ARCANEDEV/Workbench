@@ -65,12 +65,16 @@ class MigrateResetCommand extends Command
         }
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Rollback migration from the specified module.
      *
      * @param $module
      */
-    public function reset($module)
+    private function reset($module)
     {
         if (is_string($module)) {
             $module = workbench()->findOrFail($module);

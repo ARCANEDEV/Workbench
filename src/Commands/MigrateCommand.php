@@ -58,12 +58,16 @@ class MigrateCommand extends Command
         }
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Run the migration from the specified module.
      *
      * @param string $name
      */
-    protected function migrate($name)
+    private function migrate($name)
     {
         $module = workbench()->findOrFail($name);
 
@@ -86,7 +90,7 @@ class MigrateCommand extends Command
      *
      * @return string
      */
-    protected function getPath(Module $module)
+    private function getPath(Module $module)
     {
         $path = $module->getExtraPath(config('modules.paths.generator.migration'));
 

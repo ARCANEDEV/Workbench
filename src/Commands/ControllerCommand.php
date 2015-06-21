@@ -44,22 +44,9 @@ class ControllerCommand extends Command
     protected $description = 'Generate new restful controller for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
-    /**
-     * Get controller name.
-     *
-     * @return string
-     */
-    public function getDestinationFilePath()
-    {
-        $path           = workbench()->getModulePath($this->getModuleName());
-        $controllerPath = workbench()->config('paths.generator.controller');
-
-        return $path . $controllerPath . '/' . $this->getControllerName() . '.php';
-    }
-
     /**
      * @return Stub
      */
@@ -75,6 +62,19 @@ class ControllerCommand extends Command
             'MODULE_NAMESPACE'  => config('workbench.namespace'),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
         ]))->render();
+    }
+
+    /**
+     * Get controller name.
+     *
+     * @return string
+     */
+    protected function getDestinationFilePath()
+    {
+        $path           = workbench()->getModulePath($this->getModuleName());
+        $controllerPath = workbench()->config('paths.generator.controller');
+
+        return $path . $controllerPath . '/' . $this->getControllerName() . '.php';
     }
 
     /**
@@ -96,7 +96,7 @@ class ControllerCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return 'Controllers';
     }

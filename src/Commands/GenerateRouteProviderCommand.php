@@ -36,7 +36,7 @@ class GenerateRouteProviderCommand extends Command
     protected $description = 'Generate a new route service provider for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
     /**
@@ -67,6 +67,8 @@ class GenerateRouteProviderCommand extends Command
     }
 
     /**
+     * Get file name
+     *
      * @return string
      */
     private function getFileName()

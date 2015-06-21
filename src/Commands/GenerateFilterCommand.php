@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class GenerateFilterCommand
@@ -61,7 +60,9 @@ class GenerateFilterCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -76,7 +77,7 @@ class GenerateFilterCommand extends Command
      */
     private function getFileName()
     {
-        return Str::studly($this->argument('name'));
+        return str_studly($this->argument('name'));
     }
 
     /**
@@ -84,7 +85,7 @@ class GenerateFilterCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return 'Middleware';
     }

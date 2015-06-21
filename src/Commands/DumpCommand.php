@@ -53,10 +53,14 @@ class DumpCommand extends Command
         }
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * @param string $module
      */
-    public function dump($module)
+    private function dump($module)
     {
         $module = workbench()->findOrFail($module);
 

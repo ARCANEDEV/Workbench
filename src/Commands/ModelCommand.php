@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class ModelCommand
@@ -46,9 +45,19 @@ class ModelCommand extends Command
     protected $description = 'Generate new model for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Get default namespace.
+     *
+     * @return string
+     */
+    protected function getDefaultNamespace()
+    {
+        return workbench()->config('paths.generator.model');
+    }
+
     /**
      * @return mixed
      */
@@ -67,7 +76,9 @@ class ModelCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
@@ -78,11 +89,13 @@ class ModelCommand extends Command
     }
 
     /**
-     * @return mixed|string
+     * Get model name
+     *
+     * @return string
      */
     private function getModelName()
     {
-        return Str::studly($this->argument('model'));
+        return str_studly($this->argument('model'));
     }
 
     /**
@@ -99,15 +112,5 @@ class ModelCommand extends Command
         }
 
         return '[]';
-    }
-
-    /**
-     * Get default namespace.
-     *
-     * @return string
-     */
-    public function getDefaultNamespace()
-    {
-        return workbench()->config('paths.generator.model');
     }
 }

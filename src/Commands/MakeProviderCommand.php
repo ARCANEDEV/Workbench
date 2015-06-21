@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class MakeProviderCommand
@@ -46,7 +45,7 @@ class MakeProviderCommand extends Command
     protected $description = 'Generate a new service provider for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
     /**
@@ -57,7 +56,7 @@ class MakeProviderCommand extends Command
         $stub   = ($this->option('master') == 'scaffold' ? 'scaffold/' : '') . 'provider';
         $module = workbench()->findOrFail($this->getModuleName());
 
-        return (new Stub('/'.$stub.'.stub', [
+        return (new Stub('/' . $stub . '.stub', [
             'NAMESPACE'  => $this->getClassNamespace($module),
             'CLASS'      => $this->getClass(),
             'LOWER_NAME' => $module->getLowerName(),
@@ -65,22 +64,17 @@ class MakeProviderCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get the destination file path.
+     *
+     * @return string
      */
     protected function getDestinationFilePath()
     {
+        $name          = $this->argument('name');
         $path          = workbench()->getModulePath($this->getModuleName());
         $generatorPath = workbench()->config('paths.generator.provider');
 
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
-    }
-
-    /**
-     * @return string
-     */
-    private function getFileName()
-    {
-        return Str::studly($this->argument('name'));
+        return $path . $generatorPath . '/' . str_studly($name) . '.php';
     }
 
     /**
@@ -88,7 +82,7 @@ class MakeProviderCommand extends Command
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return 'Providers';
     }

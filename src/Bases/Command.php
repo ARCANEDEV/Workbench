@@ -98,7 +98,7 @@ abstract class Command extends IlluminateCommand
      *
      * @return string
      */
-    public function getClass()
+    protected function getClass()
     {
         return class_basename($this->argument($this->argumentName));
     }
@@ -108,7 +108,7 @@ abstract class Command extends IlluminateCommand
      *
      * @return string
      */
-    public function getDefaultNamespace()
+    protected function getDefaultNamespace()
     {
         return '';
     }
@@ -120,7 +120,7 @@ abstract class Command extends IlluminateCommand
      *
      * @return string
      */
-    public function getClassNamespace(Module $module)
+    protected function getClassNamespace(Module $module)
     {
         $extra      = str_replace($this->getClass(), '', $this->argument($this->argumentName));
 
