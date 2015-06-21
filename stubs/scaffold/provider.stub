@@ -62,7 +62,7 @@ class $CLASS$ extends ServiceProvider
      */
     private function registerConfig()
     {
-        $path = __DIR__ . '/../config/config.php';
+        $path = __DIR__ . '/../../config/config.php';
 
         $this->publishes([
             $path => config_path('$LOWER_NAME$.php'),
@@ -80,7 +80,7 @@ class $CLASS$ extends ServiceProvider
     {
         $viewPath = base_path('views/modules/$LOWER_NAME$');
 
-        $sourcePath = __DIR__.'/../resources/views';
+        $sourcePath = __DIR__ . '/../../resources/views';
 
         $this->publishes([
             $sourcePath => $viewPath
@@ -99,7 +99,7 @@ class $CLASS$ extends ServiceProvider
         $langPath = base_path('resources/lang/modules/$LOWER_NAME$');
 
         $this->loadTranslationsFrom(
-            is_dir($langPath) ? $langPath : __DIR__ . '/../resources/lang',
+            is_dir($langPath) ? $langPath : __DIR__ . '/../../resources/lang',
             '$LOWER_NAME$'
         );
     }
