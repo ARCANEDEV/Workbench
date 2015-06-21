@@ -47,11 +47,6 @@ class WorkbenchServiceProvider extends ServiceProvider
         $this->registerServices();
         $this->registerStubs();
         $this->registerProviders();
-
-        $this->commands([
-            // Commands\CreateCommand::class,
-            // Commands\GetCommand::class,
-        ]);
     }
 
     /**
@@ -107,10 +102,11 @@ class WorkbenchServiceProvider extends ServiceProvider
         $this->app->booted(function ($app) {
             /** @var \Illuminate\Config\Repository $config */
             $config = $app['config'];
+            $path   = __DIR__ . '/../stubs';
 
-            $path = $config->get('workbench.stubs.enabled') === true
-                ? $config->get('workbench.stubs.path')
-                : __DIR__ . '/../stubs';
+            if ($config->get('workbench.stubs.enabled', false) === true) {
+                $path = $config->get('workbench.stubs.path', $path);
+            }
 
             Stub::setBasePath($path);
         });
