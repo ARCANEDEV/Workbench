@@ -43,7 +43,7 @@ class UpdateCommand extends Command
      *
      * @return mixed
      */
-    public function fire()
+    public function handle()
     {
         workbench()->update($name = $this->getModuleName());
 
