@@ -380,15 +380,13 @@ class ModuleGenerator extends Generator
     /**
      * Get array replacement for the specified stub.
      *
-     * @param $stub
+     * @param  string $stub
      *
      * @return array
      */
     protected function getReplacement($stub)
     {
         $replacements = $this->workbench->config('stubs.replacements');
-        // TODO: Remove unused variable : $namespace
-        $namespace    = $this->workbench->config('namespace');
 
         if ( ! isset($replacements[$stub])) {
             return [];
@@ -406,6 +404,11 @@ class ModuleGenerator extends Generator
 
         return $replaces;
     }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Replacement Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Get the module name in lower case.
      *
