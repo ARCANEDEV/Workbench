@@ -1,0 +1,13 @@
+<?php namespace $CLASS_NAMESPACE$;
+
+use Arcanedev\Workbench\Bases\Controller;
+
+class $CLASS$ extends Controller
+{
+
+    public function index()
+    {
+        return view('$NAMESPACE$::index');
+    }
+
+}
