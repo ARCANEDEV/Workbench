@@ -100,7 +100,9 @@ abstract class Command extends IlluminateCommand
      */
     protected function getClass()
     {
-        return class_basename($this->argument($this->argumentName));
+        $name = $this->argument($this->argumentName);
+
+        return is_string($name) ? class_basename($name) : '';
     }
 
     /**
