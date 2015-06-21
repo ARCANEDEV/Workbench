@@ -1,6 +1,7 @@
 <?php namespace Arcanedev\Workbench;
 
 use Arcanedev\Support\Stub;
+use Arcanedev\Workbench\Providers\BootstrapServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -32,6 +33,7 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->app->register(BootstrapServiceProvider::class);
     }
 
     /**
