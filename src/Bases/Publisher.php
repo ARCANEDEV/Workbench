@@ -3,7 +3,7 @@
 use Arcanedev\Workbench\Contracts\PublisherInterface;
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Workbench;
-use Illuminate\Console\Command;
+use Illuminate\Console\Command as IlluminateCommand;
 use Illuminate\Filesystem\Filesystem;
 use RuntimeException;
 
@@ -30,7 +30,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * The laravel console instance.
      *
-     * @var Command
+     * @var IlluminateCommand
      */
     protected $console;
 
@@ -74,30 +74,6 @@ abstract class Publisher implements PublisherInterface
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Show the result message.
-     *
-     * @return self
-     */
-    public function showMessage()
-    {
-        $this->showMessage = true;
-
-        return $this;
-    }
-
-    /**
-     * Hide the result message.
-     *
-     * @return self
-     */
-    public function hideMessage()
-    {
-        $this->showMessage = false;
-
-        return $this;
-    }
-
-    /**
      * Get module instance.
      *
      * @return Module
@@ -105,6 +81,16 @@ abstract class Publisher implements PublisherInterface
     public function getModule()
     {
         return $this->module;
+    }
+
+    /**
+     * Get modules repository instance.
+     *
+     * @return Workbench
+     */
+    public function getWorkbench()
+    {
+        return $this->workbench;
     }
 
     /**
@@ -122,25 +108,25 @@ abstract class Publisher implements PublisherInterface
     }
 
     /**
-     * Get modules repository instance.
+     * Get console instance.
      *
-     * @return Workbench
+     * @return IlluminateCommand
      */
-    public function getWorkbench()
+    public function getConsole()
     {
-        return $this->workbench;
+        return $this->console;
     }
 
     /**
      * Set console instance.
      *
-     * @param  Command $console
+     * @param  IlluminateCommand $console
      *
      * @return self
      */
-    public function setConsole(Command $console)
+    public function setConsole(IlluminateCommand $console)
     {
-        if ($this->console instanceof Command) {
+        if ($this->console instanceof IlluminateCommand) {
             $this->console = $console;
 
             return $this;
@@ -152,16 +138,6 @@ abstract class Publisher implements PublisherInterface
     }
 
     /**
-     * Get console instance.
-     *
-     * @return Command
-     */
-    public function getConsole()
-    {
-        return $this->console;
-    }
-
-    /**
      * Get laravel filesystem instance.
      *
      * @return Filesystem
@@ -169,6 +145,40 @@ abstract class Publisher implements PublisherInterface
     public function getFilesystem()
     {
         return $this->workbench->getFiles();
+    }
+
+    /**
+     * Show the result message.
+     *
+     * @return self
+     */
+    public function showMessage()
+    {
+        return $this->setShowMessage(true);
+    }
+
+    /**
+     * Hide the result message.
+     *
+     * @return self
+     */
+    public function hideMessage()
+    {
+        return $this->setShowMessage(false);
+    }
+
+    /**
+     * Set the show message status
+     *
+     * @param  bool $status
+     *
+     * @return self
+     */
+    private function setShowMessage($status)
+    {
+        $this->showMessage = $status;
+
+        return $this;
     }
 
     /**
@@ -194,21 +204,69 @@ abstract class Publisher implements PublisherInterface
      */
     public function publish()
     {
-        if ( ! $this->getFilesystem()->isDirectory($sourcePath = $this->getSourcePath())) {
+        if ( ! $this->isDirectory($sourcePath = $this->getSourcePath())) {
             return;
         }
 
-        if ( ! $this->getFilesystem()->isDirectory($destinationPath = $this->getDestinationPath())) {
-            $this->getFilesystem()->makeDirectory($destinationPath, 0775, true);
+        if ( ! $this->isDirectory($destinationPath = $this->getDestinationPath())) {
+            $this->makeDirectory($destinationPath, 0775, true);
         }
 
-        if ($this->getFilesystem()->copyDirectory($sourcePath, $destinationPath)) {
-            if ($this->showMessage == true) {
-                $this->console->line("<info>Published</info>: {$this->module->getStudlyName()}");
-            }
+        if (
+            $this->copyDirectory($sourcePath, $destinationPath) &&
+            $this->showMessage
+        ) {
+            $this->console->line("<info>Published</info>: {$this->module->getStudlyName()}");
         }
         else {
             $this->console->error($this->error);
         }
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Check Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Determine if the given path is a directory.
+     *
+     * @param  string $path
+     *
+     * @return bool
+     */
+    private function isDirectory($path)
+    {
+        return $this->getFilesystem()->isDirectory($path);
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Create a directory.
+     *
+     * @param  string  $path
+     * @param  int     $mode
+     * @param  bool    $recursive
+     *
+     * @return bool
+     */
+    private function makeDirectory($path, $mode = 0755, $recursive = false)
+    {
+        return $this->getFilesystem()->makeDirectory($path, $mode, $recursive);
+    }
+
+    /**
+     * Copy a directory from one location to another.
+     *
+     * @param  string  $directory
+     * @param  string  $destination
+     *
+     * @return bool
+     */
+    public function copyDirectory($directory, $destination)
+    {
+        return $this->getFilesystem()->copyDirectory($directory, $destination);
     }
 }
