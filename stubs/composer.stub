@@ -11,7 +11,7 @@
         "psr-4": {
             "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\": "src/"
         }
-    }
+    },
     "autoload-dev": {
         "psr-4": {
             "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Tests\\": "tests/"
