@@ -45,8 +45,8 @@ class Module extends ServiceProvider
      * The constructor.
      *
      * @param Application $app
-     * @param $name
-     * @param $path
+     * @param string      $name
+     * @param string      $path
      */
     public function __construct(Application $app, $name, $path)
     {
@@ -177,35 +177,6 @@ class Module extends ServiceProvider
         return $this->getPath() . '/' . $path;
     }
 
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Bootstrap the application events.
-     */
-    public function boot()
-    {
-        $this->registerTranslation();
-
-        $this->fireEvent('boot');
-    }
-
-    /**
-     * Register module's translation.
-     *
-     * @return void
-     */
-    protected function registerTranslation()
-    {
-        $lowerName  = $this->getLowerName();
-        $langPath   = base_path("resources/lang/{$lowerName}");
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $lowerName);
-        }
-    }
-
     /**
      * Get json contents.
      *
@@ -241,6 +212,33 @@ class Module extends ServiceProvider
         return $this->json()->get($key, $default);
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Bootstrap the application events.
+     */
+    public function boot()
+    {
+        $this->registerTranslation();
+
+        $this->fireEvent('boot');
+    }
+
+    /**
+     * Register module's translation.
+     */
+    protected function registerTranslation()
+    {
+        $lowerName  = $this->getLowerName();
+        $langPath   = base_path("resources/lang/{$lowerName}");
+
+        if (is_dir($langPath)) {
+            $this->loadTranslationsFrom($langPath, $lowerName);
+        }
+    }
+
     /**
      * Register the module.
      */
@@ -253,21 +251,9 @@ class Module extends ServiceProvider
     }
 
     /**
-     * Register the module event.
-     *
-     * @param string $event
-     */
-    protected function fireEvent($event)
-    {
-        $eventName = sprintf('modules.%s.' . $event, $this->getLowerName());
-
-        $this->app['events']->fire($eventName, [$this]);
-    }
-
-    /**
      * Register the aliases from this module.
      */
-    protected function registerAliases()
+    private function registerAliases()
     {
         $loader = AliasLoader::getInstance();
 
@@ -279,7 +265,7 @@ class Module extends ServiceProvider
     /**
      * Register the service providers from this module.
      */
-    protected function registerProviders()
+    private function registerProviders()
     {
         foreach ($this->get('providers', []) as $provider) {
             $this->app->register($provider);
@@ -289,11 +275,23 @@ class Module extends ServiceProvider
     /**
      * Register the files from this module.
      */
-    protected function registerFiles()
+    private function registerFiles()
     {
         foreach ($this->get('files', []) as $file) {
             include $this->path . '/' . $file;
         }
+    }
+
+    /**
+     * Register the module event.
+     *
+     * @param string $event
+     */
+    private function fireEvent($event)
+    {
+        $eventName = sprintf('modules.%s.' . $event, $this->getLowerName());
+
+        $this->app['events']->fire($eventName, [$this]);
     }
 
     /**
@@ -311,9 +309,7 @@ class Module extends ServiceProvider
      */
     public function enable()
     {
-        $this->app['events']->fire('module.enabling', [$this]);
-        $this->setActive(true);
-        $this->app['events']->fire('module.enabled', [$this]);
+        $this->switchActive(true, 'enabling', 'enabled');
     }
 
     /**
@@ -321,9 +317,21 @@ class Module extends ServiceProvider
      */
     public function disable()
     {
-        $this->app['events']->fire('module.disabling', [$this]);
-        $this->setActive(false);
-        $this->app['events']->fire('module.disabled', [$this]);
+        $this->switchActive(false, 'disabling', 'disabled');
+    }
+
+    /**
+     * Switch the current module active.
+     *
+     * @param bool   $value
+     * @param string $before
+     * @param string $after
+     */
+    private function switchActive($value, $before, $after)
+    {
+        $this->app['events']->fire('module.' . $before, [$this]);
+        $this->setActive($value);
+        $this->app['events']->fire('module.' . $after, [$this]);
     }
 
     /**
@@ -333,7 +341,8 @@ class Module extends ServiceProvider
      */
     public function delete()
     {
-        return $this->json()->getFilesystem()->deleteDirectory($this->getPath(), true);
+        return $this->json()->getFilesystem()
+            ->deleteDirectory($this->getPath(), true);
     }
 
     /* ------------------------------------------------------------------------------------------------
