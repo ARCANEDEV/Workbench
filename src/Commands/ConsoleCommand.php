@@ -3,7 +3,6 @@
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
-use Illuminate\Support\Str;
 
 /**
  * Class ConsoleCommand
@@ -50,15 +49,15 @@ class ConsoleCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Get template contents
+     *
      * @return mixed
      */
     protected function getTemplateContents()
     {
-        $module = workbench()->findOrFail($this->getModuleName());
-
         return (new Stub('/command.stub', [
             'COMMAND_NAME'  => $this->getCommandName(),
-            'NAMESPACE'     => $this->getClassNamespace($module),
+            'NAMESPACE'     => $this->getClassNamespace($this->getModule()),
             'CLASS'         => $this->getClass(),
         ]))->render();
     }
@@ -81,7 +80,7 @@ class ConsoleCommand extends Command
      */
     private function getFileName()
     {
-        return Str::studly($this->argument('name'));
+        return str_studly($this->argument('name'));
     }
 
     /**

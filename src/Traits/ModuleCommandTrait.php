@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench\Traits;
 use Arcanedev\Workbench\Entities\Module;
+use Arcanedev\Workbench\Exceptions\ModuleNotFoundException;
 use Illuminate\Console\Command;
 
 /**
@@ -8,19 +9,33 @@ use Illuminate\Console\Command;
  */
 trait ModuleCommandTrait
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get module
+     *
+     * @throws ModuleNotFoundException
+     *
+     * @return Module
+     */
+    protected function getModule()
+    {
+        /** @var Command $this */
+        $module = $this->argument('module') ?: workbench()->getUsedNow();
+
+        /** @var string $module */
+        return workbench()->findOrFail($module);
+    }
+
     /**
      * Get the module name.
      *
      * @return string
      */
-    public function getModuleName()
+    protected function getModuleName()
     {
-        /** @var Command $this */
-        $module = $this->argument('module') ?: workbench()->getUsedNow();
-
-        /** @var Module $module */
-        $module = workbench()->findOrFail($module);
-
-        return $module->getStudlyName();
+        return $this->getModule()->getStudlyName();
     }
 }

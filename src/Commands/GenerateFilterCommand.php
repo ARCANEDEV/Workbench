@@ -51,10 +51,8 @@ class GenerateFilterCommand extends Command
      */
     protected function getTemplateContents()
     {
-        $module = workbench()->findOrFail($this->getModuleName());
-
         return (new Stub('/filter.stub', [
-            'NAMESPACE' => $this->getClassNamespace($module),
+            'NAMESPACE' => $this->getClassNamespace($this->getModule()),
             'CLASS'     => $this->getClass(),
         ]))->render();
     }
