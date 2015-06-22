@@ -14,9 +14,9 @@ abstract class Publisher implements PublisherInterface
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * The name of module will used.
+     * The module will used.
      *
-     * @var string
+     * @var Module
      */
     protected $module;
 
@@ -204,7 +204,9 @@ abstract class Publisher implements PublisherInterface
      */
     public function publish()
     {
-        if ( ! $this->isDirectory($sourcePath = $this->getSourcePath())) {
+        $sourcePath = $this->getSourcePath();
+
+        if ( ! $this->isDirectory($sourcePath)) {
             return;
         }
 
