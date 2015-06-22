@@ -1,0 +1,13 @@
+<?php namespace $NAMESPACE$;
+
+use Illuminate\Database\Eloquent\Model;
+
+class $CLASS$ extends Model
+{
+    /* ------------------------------------------------------------------------------------------------
+     |  Properties
+     | ------------------------------------------------------------------------------------------------
+     */
+    protected $fillable = $FILLABLE$;
+
+}
