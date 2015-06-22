@@ -5,10 +5,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class ControllerCommand
+ * Class MakeControllerCommand
  * @package Arcanedev\Workbench\Commands
  */
-class ControllerCommand extends Command
+class MakeControllerCommand extends Command
 {
     /* ------------------------------------------------------------------------------------------------
      |  Traits

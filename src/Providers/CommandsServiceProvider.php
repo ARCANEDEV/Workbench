@@ -1,16 +1,16 @@
 <?php namespace Arcanedev\Workbench\Providers;
 
 use Arcanedev\Workbench\Commands\ConsoleCommand;
-use Arcanedev\Workbench\Commands\ControllerCommand;
 use Arcanedev\Workbench\Commands\DisableCommand;
 use Arcanedev\Workbench\Commands\DumpCommand;
 use Arcanedev\Workbench\Commands\EnableCommand;
 use Arcanedev\Workbench\Commands\GenerateFilterCommand;
-use Arcanedev\Workbench\Commands\MakeProviderCommand;
 use Arcanedev\Workbench\Commands\GenerateRouteProviderCommand;
 use Arcanedev\Workbench\Commands\InstallCommand;
 use Arcanedev\Workbench\Commands\ListCommand;
 use Arcanedev\Workbench\Commands\MakeCommand;
+use Arcanedev\Workbench\Commands\MakeControllerCommand;
+use Arcanedev\Workbench\Commands\MakeProviderCommand;
 use Arcanedev\Workbench\Commands\MakeRequestCommand;
 use Arcanedev\Workbench\Commands\MigrateCommand;
 use Arcanedev\Workbench\Commands\MigrateRefreshCommand;
@@ -70,7 +70,6 @@ class CommandsServiceProvider extends ServiceProvider
     {
         return [
             ConsoleCommand::class,
-            ControllerCommand::class,
             DisableCommand::class,
             DumpCommand::class,
             EnableCommand::class,
@@ -79,6 +78,7 @@ class CommandsServiceProvider extends ServiceProvider
             InstallCommand::class,
             ListCommand::class,
             MakeCommand::class,
+            MakeControllerCommand::class,
             MakeProviderCommand::class,
             MakeRequestCommand::class,
             MigrateCommand::class,
