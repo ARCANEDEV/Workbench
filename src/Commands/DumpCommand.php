@@ -2,7 +2,6 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class DumpCommand
