@@ -43,6 +43,11 @@ class ModuleTest extends TestCase
     /** @test */
     public function it_can_get_module_attributes()
     {
+        $name = 'Module';
+        $this->assertEquals($name, $this->module->getName());
+        $this->assertEquals($name, $this->module->name);
+        $this->assertEquals($name, $this->module->get('name'));
+
         $alias = 'module';
         $this->assertEquals($alias, $this->module->alias);
         $this->assertEquals($alias, $this->module->getAlias());
@@ -73,7 +78,7 @@ class ModuleTest extends TestCase
      *
      * @return Module
      */
-    private function createModule($name = 'module')
+    private function createModule($name = 'Module')
     {
         return new Module($this->app, $name, $this->getFixturePath($name));
     }
@@ -85,8 +90,8 @@ class ModuleTest extends TestCase
      *
      * @return string
      */
-    private function getFixturePath($name = 'module')
+    private function getFixturePath($name = 'Module')
     {
-        return realpath(__DIR__ . '/fixtures/' . $name);
+        return realpath(__DIR__ . '/fixtures/' . str_slug($name));
     }
 }

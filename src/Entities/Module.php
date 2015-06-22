@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
  * Class Module
  * @package Arcanedev\Workbench\Entities
  *
+ * @property string name
  * @property string alias
  * @property string description
  * @property array  keywords
@@ -92,9 +93,11 @@ class Module extends ServiceProvider
     }
 
     /**
-     * Get name.
+     * Set name.
      *
-     * @return self
+     * @param  string $name
+     *
+     * @return Module
      */
     private function setName($name)
     {
@@ -110,7 +113,7 @@ class Module extends ServiceProvider
      */
     public function getLowerName()
     {
-        return strtolower($this->name);
+        return str_slug($this->name);
     }
 
     /**
@@ -196,7 +199,9 @@ class Module extends ServiceProvider
      */
     public function setActive($active)
     {
-        return $this->json()->set('active', $active)->save();
+        $saved = $this->json()->set('active', (bool) $active)->save();
+        
+        return (bool) $saved;
     }
 
     /**
