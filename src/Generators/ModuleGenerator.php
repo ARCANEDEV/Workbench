@@ -289,8 +289,6 @@ class ModuleGenerator extends Generator
             $this->generateResources();
         }
 
-        passthru('composer dump -o -n -q');
-
         $this->console->info("Module [{$name}] created successfully.");
     }
 

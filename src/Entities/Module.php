@@ -321,7 +321,9 @@ class Module extends ServiceProvider
     private function registerProviders()
     {
         foreach ($this->get('providers', []) as $provider) {
-            $this->app->register($provider);
+            if (class_exists($provider)) {
+                $this->app->register($provider);
+            }
         }
     }
 
