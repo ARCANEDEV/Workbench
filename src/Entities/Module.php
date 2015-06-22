@@ -1,6 +1,7 @@
 <?php namespace Arcanedev\Workbench\Entities;
 
 use Arcanedev\Support\Json;
+use Illuminate\Contracts\Events\Dispatcher as EventsDispatcher;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
@@ -8,6 +9,11 @@ use Illuminate\Support\ServiceProvider;
 /**
  * Class Module
  * @package Arcanedev\Workbench\Entities
+ *
+ * @property string alias
+ * @property string description
+ * @property array  keywords
+ * @property int    active
  */
 class Module extends ServiceProvider
 {
@@ -37,6 +43,11 @@ class Module extends ServiceProvider
      */
     protected $path;
 
+    /**
+     * @var EventsDispatcher
+     */
+    private $events;
+
     /* ------------------------------------------------------------------------------------------------
      |  Constructor
      | ------------------------------------------------------------------------------------------------
@@ -50,9 +61,10 @@ class Module extends ServiceProvider
      */
     public function __construct(Application $app, $name, $path)
     {
-        $this->app  = $app;
-        $this->name = $name;
-        $this->path = realpath($path);
+        $this->app = $app;
+        $this->setName($name);
+        $this->setPath(realpath($path));
+        $this->setDispatcher($app['events']);
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -80,6 +92,18 @@ class Module extends ServiceProvider
     }
 
     /**
+     * Get name.
+     *
+     * @return self
+     */
+    private function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
      * Get name in lower case.
      *
      * @return string
@@ -97,36 +121,6 @@ class Module extends ServiceProvider
     public function getStudlyName()
     {
         return str_studly($this->name);
-    }
-
-    /**
-     * Get description.
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->get('description');
-    }
-
-    /**
-     * Get alias.
-     *
-     * @return string
-     */
-    public function getAlias()
-    {
-        return $this->get('alias');
-    }
-
-    /**
-     * Get priority.
-     *
-     * @return string
-     */
-    public function getPriority()
-    {
-        return $this->get('priority');
     }
 
     /**
@@ -151,6 +145,46 @@ class Module extends ServiceProvider
         $this->path = $path;
 
         return $this;
+    }
+
+    /**
+     * Get alias.
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->get('alias');
+    }
+
+    /**
+     * Get description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->get('description');
+    }
+
+    /**
+     * Get keywords
+     *
+     * @return array
+     */
+    public function getKeywords()
+    {
+        return $this->get('keywords', []);
+    }
+
+    /**
+     * Get priority.
+     *
+     * @return string
+     */
+    public function getPriority()
+    {
+        return $this->get('priority');
     }
 
     /**
@@ -210,6 +244,20 @@ class Module extends ServiceProvider
     public function get($key, $default = null)
     {
         return $this->json()->get($key, $default);
+    }
+
+    /**
+     * Set event dispatcher
+     *
+     * @param  EventsDispatcher $events
+     *
+     * @return self
+     */
+    public function setDispatcher(EventsDispatcher $events)
+    {
+        $this->events = $events;
+
+        return $this;
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -291,7 +339,7 @@ class Module extends ServiceProvider
     {
         $eventName = sprintf('modules.%s.' . $event, $this->getLowerName());
 
-        $this->app['events']->fire($eventName, [$this]);
+        $this->events->fire($eventName, [$this]);
     }
 
     /**
@@ -329,9 +377,9 @@ class Module extends ServiceProvider
      */
     private function switchActive($value, $before, $after)
     {
-        $this->app['events']->fire('module.' . $before, [$this]);
+        $this->events->fire('module.' . $before, [$this]);
         $this->setActive($value);
-        $this->app['events']->fire('module.' . $after, [$this]);
+        $this->events->fire('module.' . $after, [$this]);
     }
 
     /**

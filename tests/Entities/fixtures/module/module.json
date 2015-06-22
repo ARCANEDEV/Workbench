@@ -1,0 +1,15 @@
+{
+    "name": "Module",
+    "alias": "module",
+    "description": "Module description for tests",
+    "keywords": ["module", "test"],
+    "active": 1,
+    "order": 0,
+    "providers": [
+        "Arcanedev\\Module\\Providers\\ModuleServiceProvider"
+    ],
+    "aliases":{},
+    "files": [
+        "start.php"
+    ]
+}
