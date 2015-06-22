@@ -41,9 +41,7 @@ class MakeCommand extends Command
      */
     public function handle()
     {
-        $names = array_map('trim', explode(',', $this->argument('names')));
-
-        foreach ($names as $name) {
+        foreach ($this->getNames() as $name) {
             (new ModuleGenerator($name))
                 ->setFilesystem(app('files'))
                 ->setWorkbench(workbench())
@@ -54,6 +52,25 @@ class MakeCommand extends Command
                 ->generate();
         }
 
-        $this->call('module:dump');
+        $this->line("<comment>Dump all modules autoload</comment>");
+        chdir(base_path());
+        passthru('composer dump -o -n -q');
     }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get names argument
+     *
+     * @return array
+     */
+    private function getNames()
+    {
+        $names = array_map('trim', explode(',', $this->argument('names')));
+
+        return $names;
+    }
+
 }
