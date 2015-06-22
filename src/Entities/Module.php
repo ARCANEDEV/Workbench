@@ -336,18 +336,6 @@ class Module extends ServiceProvider
     }
 
     /**
-     * Register the module event.
-     *
-     * @param string $event
-     */
-    private function fireEvent($event)
-    {
-        $eventName = sprintf('modules.%s.' . $event, $this->getLowerName());
-
-        $this->events->fire($eventName, [$this]);
-    }
-
-    /**
      * Handle call __toString.
      *
      * @return string
@@ -452,5 +440,21 @@ class Module extends ServiceProvider
     public function disabled()
     {
         return ! $this->enabled();
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Register the module event.
+     *
+     * @param string $event
+     */
+    private function fireEvent($event)
+    {
+        $eventName = sprintf('modules.%s.' . $event, $this->getLowerName());
+
+        $this->events->fire($eventName, [$this]);
     }
 }
