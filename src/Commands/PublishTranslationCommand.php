@@ -55,8 +55,8 @@ class PublishTranslationCommand extends Command
      */
     private function publishAll()
     {
+        /** @var Module $module */
         foreach (workbench()->enabled() as $module) {
-            /** @var Module $module */
             $this->publish($module);
         }
     }

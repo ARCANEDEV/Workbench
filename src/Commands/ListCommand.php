@@ -54,7 +54,7 @@ class ListCommand extends Command
      */
     protected function getRows()
     {
-        $rows = array_map(function (Module $module) {
+        return array_map(function (Module $module) {
             return [
                 $module->getStudlyName(),
                 $module->enabled() ? 'Enabled' : 'Disabled',
@@ -62,8 +62,6 @@ class ListCommand extends Command
                 $module->getPath(),
             ];
         }, $this->getModules());
-
-        return $rows;
     }
 
     /**
@@ -78,6 +76,7 @@ class ListCommand extends Command
         }
 
         $choice = $this->anticipate('Select only modules that are ?', ['enabled', 'disabled', 'ordered']);
+
         switch ($choice) {
             case 'enabled':
                 return workbench()->getByStatus(1);

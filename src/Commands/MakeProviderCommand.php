@@ -45,11 +45,13 @@ class MakeProviderCommand extends Command
     protected $description = 'Generate a new service provider for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
@@ -70,11 +72,10 @@ class MakeProviderCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $name          = $this->argument('name');
         $path          = workbench()->getModulePath($this->getModuleName());
         $generatorPath = workbench()->config('paths.generator.provider');
 
-        return $path . $generatorPath . '/' . str_studly($name) . '.php';
+        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
     }
 
     /**

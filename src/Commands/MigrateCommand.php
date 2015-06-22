@@ -42,7 +42,6 @@ class MigrateCommand extends Command
      */
     public function handle()
     {
-        $this->module = $this->laravel['modules'];
         $name = $this->argument('module');
 
         if ($name) {

@@ -51,10 +51,9 @@ class MigrateResetCommand extends Command
      */
     public function handle()
     {
-        $module = $this->argument('module');
-
-        if ( ! empty($module)) {
+        if ( ! empty($module = $this->argument('module'))) {
             $this->reset($module);
+
             return;
         }
 
@@ -72,7 +71,7 @@ class MigrateResetCommand extends Command
     /**
      * Rollback migration from the specified module.
      *
-     * @param $module
+     * @param Module|string $module
      */
     private function reset($module)
     {
@@ -86,9 +85,9 @@ class MigrateResetCommand extends Command
             foreach ($migrated as $migration) {
                 $this->line("Rollback: <info>{$migration}</info>");
             }
-            return;
         }
-
-        $this->comment('Nothing to rollback.');
+        else {
+            $this->comment('Nothing to rollback.');
+        }
     }
 }

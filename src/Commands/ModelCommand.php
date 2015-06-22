@@ -59,20 +59,22 @@ class ModelCommand extends Command
     }
 
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
-        $module = workbench()->findOrFail($this->getModuleName());
+        $module = $this->getModule();
 
-        return (new Stub('/model.stub', [
+        return Stub::create('/model.stub', [
             'MODULE'           => $this->getModuleName(),
-            'NAME'             => $this->getModelName(),
+            'NAME'             => $this->getFileName(),
             'FILLABLE'         => $this->getFillable(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
             'NAMESPACE'        => $this->getClassNamespace($module),
             'CLASS'            => $this->getClass(),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -85,7 +87,7 @@ class ModelCommand extends Command
         $path       = workbench()->getModulePath($this->getModuleName());
         $seederPath = workbench()->config('paths.generator.model');
 
-        return $path . $seederPath . '/' . $this->getModelName() . '.php';
+        return $path . $seederPath . '/' . $this->getFileName() . '.php';
     }
 
     /**
@@ -93,12 +95,14 @@ class ModelCommand extends Command
      *
      * @return string
      */
-    private function getModelName()
+    protected function getFileName()
     {
         return str_studly($this->argument('model'));
     }
 
     /**
+     * Get fillable
+     *
      * @return string
      */
     private function getFillable()

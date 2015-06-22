@@ -33,7 +33,7 @@ class MakeControllerCommand extends Command
      * @var string
      */
     protected $signature = 'module:make-controller
-                            {controller : The name of the controller class.}
+                            {name : The name of the controller class.}
                             {module? : The name of module will be used.}';
 
     /**
@@ -44,19 +44,21 @@ class MakeControllerCommand extends Command
     protected $description = 'Generate new restful controller for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
+     |  Getter & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * @return Stub
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
-        $module = workbench()->findOrFail($this->getModuleName());
+        $module = $this->getModule();
 
         return (new Stub('/controller.stub', [
             'MODULENAME'        => $module->getStudlyName(),
-            'CONTROLLERNAME'    => $this->getControllerName(),
+            'CONTROLLERNAME'    => $this->getFileName(),
             'CLASS'             => $this->getClass(),
             'NAMESPACE'         => $module->getLowername(),
             'MODULE_NAMESPACE'  => config('workbench.namespace'),
@@ -65,7 +67,7 @@ class MakeControllerCommand extends Command
     }
 
     /**
-     * Get controller name.
+     * Get the destination file path.
      *
      * @return string
      */
@@ -74,21 +76,7 @@ class MakeControllerCommand extends Command
         $path           = workbench()->getModulePath($this->getModuleName());
         $controllerPath = workbench()->config('paths.generator.controller');
 
-        return $path . $controllerPath . '/' . $this->getControllerName() . '.php';
-    }
-
-    /**
-     * @return array|string
-     */
-    protected function getControllerName()
-    {
-        $controller = studly_case($this->argument('controller'));
-
-        if ( ! str_contains(strtolower($controller), 'controller')) {
-            $controller = $controller.'Controller';
-        }
-
-        return $controller;
+        return $path . $controllerPath . '/' . $this->getFileName() . '.php';
     }
 
     /**
@@ -99,5 +87,21 @@ class MakeControllerCommand extends Command
     protected function getDefaultNamespace()
     {
         return 'Controllers';
+    }
+
+    /**
+     * Get studly file name
+     *
+     * @return string
+     */
+    protected function getFileName()
+    {
+        $name = parent::getFileName();
+
+        if ( ! str_contains(strtolower($name), 'controller')) {
+            $name .= 'Controller';
+        }
+
+        return $name;
     }
 }

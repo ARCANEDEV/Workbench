@@ -38,19 +38,21 @@ class SeedMakeCommand extends Command
     protected $description = 'Generate new seeder for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
-        return (new Stub('/seeder.stub', [
-            'NAME'             => $this->getSeederName(),
+        return Stub::create('/seeder.stub', [
+            'NAME'             => $this->getFileName(),
             'MODULE'           => $this->getModuleName(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -63,7 +65,7 @@ class SeedMakeCommand extends Command
         $path       = workbench()->getModulePath($this->getModuleName());
         $seederPath = workbench()->config('paths.generator.seeder');
 
-        return $path . $seederPath . '/' . $this->getSeederName() . '.php';
+        return $path . $seederPath . '/' . $this->getFileName() . '.php';
     }
 
     /**
@@ -71,10 +73,10 @@ class SeedMakeCommand extends Command
      *
      * @return string
      */
-    private function getSeederName()
+    protected function getFileName()
     {
         $end = $this->option('master') ? 'DatabaseSeeder' : 'TableSeeder';
 
-        return str_studly($this->argument('name')) . $end;
+        return parent::getFileName() . $end;
     }
 }

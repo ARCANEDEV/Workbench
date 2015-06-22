@@ -42,27 +42,15 @@ class MigrationCommand extends Command
     protected $description = 'Generate a new migration for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Run the command.
-     */
-    public function handle()
-    {
-        parent::handle();
-
-        $this->call('optimize');
-    }
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
+     * Get template contents.
+     *
      * @throws InvalidMigrationNameException
      *
-     * @return mixed
+     * @return string
      */
     protected function getTemplateContents()
     {
@@ -73,7 +61,7 @@ class MigrationCommand extends Command
                 'class'  => $this->getClass(),
                 'table'  => $parser->getTable(),
                 'fields' => $this->getSchemaParser()->render(),
-            ]);
+            ])->render();
         }
         elseif ($parser->isAdd()) {
             return Stub::create('/migration/add.stub', [
@@ -81,7 +69,7 @@ class MigrationCommand extends Command
                 'table'       => $parser->getTable(),
                 'fields_up'   => $this->getSchemaParser()->up(),
                 'fields_down' => $this->getSchemaParser()->down(),
-            ]);
+            ])->render();
         }
         elseif ($parser->isDelete()) {
             return Stub::create('/migration/delete.stub', [
@@ -89,14 +77,14 @@ class MigrationCommand extends Command
                 'table'        => $parser->getTable(),
                 'fields_down'  => $this->getSchemaParser()->up(),
                 'fields_up'    => $this->getSchemaParser()->down(),
-            ]);
+            ])->render();
         }
         elseif ($parser->isDrop()) {
             return Stub::create('/migration/drop.stub', [
                 'class'     => $this->getClass(),
                 'table'     => $parser->getTable(),
                 'fields'    => $this->getSchemaParser()->render(),
-            ]);
+            ])->render();
         }
 
         throw new InvalidMigrationNameException();
@@ -126,9 +114,11 @@ class MigrationCommand extends Command
     }
 
     /**
+     * Get studly file name
+     *
      * @return string
      */
-    private function getFileName()
+    protected function getFileName()
     {
         return date('Y_m_d_His_') . $this->getSchemaName();
     }
@@ -150,6 +140,20 @@ class MigrationCommand extends Command
      */
     private function getSchemaName()
     {
-        return $this->argument('name');
+        return (string) $this->argument('name');
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Run the command.
+     */
+    public function handle()
+    {
+        parent::handle();
+
+        $this->call('optimize');
     }
 }

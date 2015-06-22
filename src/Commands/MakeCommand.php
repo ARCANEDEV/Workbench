@@ -72,5 +72,4 @@ class MakeCommand extends Command
 
         return $names;
     }
-
 }

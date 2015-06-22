@@ -59,6 +59,8 @@ class DumpCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Dump module
+     *
      * @param string $module
      */
     private function dump($module)

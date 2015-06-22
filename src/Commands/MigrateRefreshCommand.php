@@ -48,21 +48,23 @@ class MigrateRefreshCommand extends Command
      */
     public function handle()
     {
+        $moduleName = $this->getModuleName();
+
         $this->call('module:migrate-reset', [
-            'module'     => $this->getModuleName(),
+            'module'     => $moduleName,
             '--database' => $this->option('db'),
             '--force'    => $this->option('force'),
         ]);
 
         $this->call('module:migrate', [
-            'module'     => $this->getModuleName(),
+            'module'     => $moduleName,
             '--database' => $this->option('db'),
             '--force'    => $this->option('force'),
         ]);
 
         if ($this->option('seed')) {
             $this->call('module:seed', [
-                'module' => $this->getModuleName(),
+                'module' => $moduleName,
             ]);
         }
     }

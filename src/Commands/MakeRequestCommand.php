@@ -44,7 +44,7 @@ class MakeRequestCommand extends Command
     protected $description = 'Generate new form request class for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
@@ -76,16 +76,6 @@ class MakeRequestCommand extends Command
         $seederPath = workbench()->config('paths.generator.request');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
-    }
-
-    /**
-     * Get file name
-     *
-     * @return string
-     */
-    private function getFileName()
-    {
-        return str_studly($this->argument('name'));
     }
 
     /**

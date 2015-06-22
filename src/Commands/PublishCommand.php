@@ -67,12 +67,9 @@ class PublishCommand extends Command
      */
     private function publish($name)
     {
-        if ($name instanceof Module) {
-            $module = $name;
-        }
-        else {
-            $module = workbench()->findOrFail($name);
-        }
+        $module = $name instanceof Module
+            ? $name
+            : workbench()->findOrFail($name);
 
         (new AssetPublisher($module))
             ->setWorkbench(workbench())

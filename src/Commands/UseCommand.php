@@ -39,12 +39,13 @@ class UseCommand extends Command
     public function handle()
     {
         $module = str_studly($this->argument('module'));
-        if ( ! workbench()->has($module)) {
-            $this->error("Module [{$module}] does not exists.");
-            return;
-        }
 
-        workbench()->setUsed($module);
-        $this->info("Module [{$module}] used successfully.");
+        if ( ! workbench()->has($module)) {
+            workbench()->setUsed($module);
+            $this->info("Module [{$module}] used successfully.");
+        }
+        else {
+            $this->error("Module [{$module}] does not exists.");
+        }
     }
 }

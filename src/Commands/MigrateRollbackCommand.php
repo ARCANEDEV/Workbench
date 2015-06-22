@@ -46,8 +46,6 @@ class MigrateRollbackCommand extends Command
      */
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
@@ -73,7 +71,7 @@ class MigrateRollbackCommand extends Command
     /**
      * Rollback migration from the specified module.
      *
-     * @param $module
+     * @param Module|string $module
      */
     private function rollback($module)
     {

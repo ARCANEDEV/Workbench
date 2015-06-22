@@ -2,6 +2,7 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Exceptions\FileAlreadyExistException;
+use Arcanedev\Workbench\Exceptions\InvalidFileNameException;
 use Arcanedev\Workbench\Generators\FileGenerator;
 use Illuminate\Console\Command as IlluminateCommand;
 
@@ -49,34 +50,7 @@ abstract class Command extends IlluminateCommand
     }
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Execute the console command.
-     */
-    public function handle()
-    {
-        $path = str_replace('\\', '/', $this->getDestinationFilePath());
-
-        if ( ! app('files')->isDirectory($dir = dirname($path))) {
-            app('files')->makeDirectory($dir, 0777, true);
-        }
-
-        $contents = $this->getTemplateContents();
-
-        try {
-            (new FileGenerator($path, $contents))->generate();
-
-            $this->info("Created : {$path}");
-        }
-        catch (FileAlreadyExistException $e) {
-            $this->error("File : {$path} already exists.");
-        }
-    }
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Other Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
@@ -100,9 +74,9 @@ abstract class Command extends IlluminateCommand
      */
     protected function getClass()
     {
-        $name = $this->argument($this->argumentName);
-
-        return is_string($name) ? class_basename($name) : '';
+        return is_string($name = $this->argument($this->argumentName))
+            ? class_basename($name)
+            : '';
     }
 
     /**
@@ -115,6 +89,61 @@ abstract class Command extends IlluminateCommand
         return '';
     }
 
+    /**
+     * Get studly file name
+     *
+     * @throws InvalidFileNameException
+     *
+     * @return string
+     */
+    protected function getFileName()
+    {
+        if (is_string($name = $this->argument('name'))) {
+            return str_studly($name);
+        }
+
+        throw new InvalidFileNameException;
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Execute the console command.
+     */
+    public function handle()
+    {
+        $this->runCommand();
+    }
+
+    /**
+     * Run the generate console command.
+     */
+    private function runCommand()
+    {
+        $path = str_replace('\\', '/', $this->getDestinationFilePath());
+
+        if ( ! app('files')->isDirectory($dir = dirname($path))) {
+            app('files')->makeDirectory($dir, 0777, true);
+        }
+
+        $contents = $this->getTemplateContents();
+
+        try {
+            (new FileGenerator($path, $contents))->generate();
+
+            $this->info("Created : {$path}");
+        }
+        catch (FileAlreadyExistException $e) {
+            $this->error("File : {$path} already exists.");
+        }
+    }
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Other Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Get class namespace.
      *

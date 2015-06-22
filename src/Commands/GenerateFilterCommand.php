@@ -43,11 +43,13 @@ class GenerateFilterCommand extends Command
     protected $description = 'Generate new middleware class for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * @return mixed
+     * Get template contents.
+     *
+     * @return string
      */
     protected function getTemplateContents()
     {
@@ -68,14 +70,6 @@ class GenerateFilterCommand extends Command
         $seederPath = workbench()->config('paths.generator.filter');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
-    }
-
-    /**
-     * @return string
-     */
-    private function getFileName()
-    {
-        return str_studly($this->argument('name'));
     }
 
     /**

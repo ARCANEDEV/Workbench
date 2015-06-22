@@ -45,7 +45,7 @@ class ConsoleCommand extends Command
     protected $description = 'Generate new Artisan command for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
+     |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
      */
     /**
@@ -73,18 +73,6 @@ class ConsoleCommand extends Command
         $seederPath = workbench()->config('paths.generator.command');
 
         return $path . $seederPath . '/' . $this->getFileName() . '.php';
-    }
-
-    /**
-     * Get file name
-     *
-     * @return string
-     */
-    private function getFileName()
-    {
-        $name = $this->argument('name');
-
-        return is_string($name) ? str_studly($name) : '';
     }
 
     /**
