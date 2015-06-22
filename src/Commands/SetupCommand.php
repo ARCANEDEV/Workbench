@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Helpers\ComposerFile;
 use Exception;
 use Illuminate\Console\Command;
 
@@ -38,6 +39,8 @@ class SetupCommand extends Command
      */
     public function handle()
     {
+        $this->updateComposer();
+
         try {
             $this->makeModulesFolder();
             $this->makeAssetsFolder();
@@ -51,6 +54,19 @@ class SetupCommand extends Command
      |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Update the main composer to autoload the modules.
+     */
+    private function updateComposer()
+    {
+        $composer = new ComposerFile();
+
+        if ( ! $composer->hasMergeModules()) {
+            $composer->addMergeModules();
+            $this->info('Composer file updated...');
+        }
+    }
+
     /**
      * Generate the modules folder.
      */
