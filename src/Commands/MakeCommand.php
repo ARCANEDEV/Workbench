@@ -54,7 +54,6 @@ class MakeCommand extends Command
                 ->generate();
         }
 
-        $this->comment('Dump autoload...');
         $this->call('module:dump');
     }
 }
