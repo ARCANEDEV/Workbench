@@ -2,6 +2,7 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Tests\TestCase;
+use Mockery as m;
 
 class ModuleTest extends TestCase
 {
@@ -66,6 +67,17 @@ class ModuleTest extends TestCase
         $this->assertTrue((bool) $this->module->active);
         $this->assertTrue($this->module->active());
         $this->assertTrue((bool) $this->module->get('active'));
+    }
+
+    /** @test */
+    public function it_can_fire_events_on_enabling()
+    {
+        $events = m::mock('Illuminate\\Contracts\\Events\\Dispatcher');
+        $events->shouldReceive('fire')->times(2);
+
+        $this->module->setDispatcher($events);
+
+        $this->module->enable();
     }
 
     /* ------------------------------------------------------------------------------------------------

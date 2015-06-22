@@ -200,7 +200,7 @@ class Module extends ServiceProvider
     public function setActive($active)
     {
         $saved = $this->json()->set('active', (bool) $active)->save();
-        
+
         return (bool) $saved;
     }
 

@@ -2,13 +2,16 @@
     "name": "Module",
     "alias": "module",
     "description": "Module description for tests",
-    "keywords": ["module", "test"],
-    "active": 1,
+    "keywords": [
+        "module",
+        "test"
+    ],
+    "active": false,
     "order": 0,
     "providers": [
         "Arcanedev\\Module\\Providers\\ModuleServiceProvider"
     ],
-    "aliases":{},
+    "aliases": [],
     "files": [
         "start.php"
     ]
