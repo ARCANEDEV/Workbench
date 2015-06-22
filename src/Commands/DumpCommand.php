@@ -41,7 +41,9 @@ class DumpCommand extends Command
     {
         $this->info('Generating optimized autoload modules.');
 
-        if ($module = $this->argument('module')) {
+        $module = $this->argument('module');
+
+        if ($module && is_string($module)) {
             $this->dump($module);
         }
         else {

@@ -76,14 +76,20 @@ class ConsoleCommand extends Command
     }
 
     /**
+     * Get file name
+     *
      * @return string
      */
     private function getFileName()
     {
-        return str_studly($this->argument('name'));
+        $name = $this->argument('name');
+
+        return is_string($name) ? str_studly($name) : '';
     }
 
     /**
+     * Get command name
+     *
      * @return string
      */
     private function getCommandName()

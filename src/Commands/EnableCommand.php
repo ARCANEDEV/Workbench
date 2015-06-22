@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command;
 
 /**
@@ -8,6 +9,12 @@ use Illuminate\Console\Command;
  */
 class EnableCommand extends Command
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Traits
+     | ------------------------------------------------------------------------------------------------
+     */
+    use ModuleCommandTrait;
+
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -33,12 +40,10 @@ class EnableCommand extends Command
      */
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $module = workbench()->findOrFail($this->argument('module'));
+        $module = $this->getModule();
 
         if ($module->disabled()) {
             $module->enable();
