@@ -17,7 +17,7 @@ class FileGenerator
     protected $path;
 
     /**
-     * The contens will be used.
+     * The contents will be used.
      *
      * @var string
      */
@@ -26,7 +26,7 @@ class FileGenerator
     /**
      * The laravel filesystem or null.
      *
-     * @var \Illuminate\Filesystem\Filesystem|null
+     * @var \Illuminate\Filesystem\Filesystem
      */
     protected $filesystem;
 
@@ -55,7 +55,7 @@ class FileGenerator
     /**
      * Get contents.
      *
-     * @return mixed
+     * @return string
      */
     public function getContents()
     {
@@ -65,7 +65,7 @@ class FileGenerator
     /**
      * Set contents.
      *
-     * @param  mixed $contents
+     * @param  string $contents
      *
      * @return self
      */
@@ -79,7 +79,7 @@ class FileGenerator
     /**
      * Get filesystem.
      *
-     * @return mixed
+     * @return Filesystem
      */
     public function getFilesystem()
     {
@@ -103,7 +103,7 @@ class FileGenerator
     /**
      * Get path.
      *
-     * @return mixed
+     * @return string
      */
     public function getPath()
     {
@@ -130,6 +130,10 @@ class FileGenerator
      */
     /**
      * Generate the file.
+     *
+     * @throws FileAlreadyExistException
+     *
+     * @return int
      */
     public function generate()
     {
