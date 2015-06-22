@@ -6,7 +6,7 @@
         "module",
         "test"
     ],
-    "active": false,
+    "active": true,
     "order": 0,
     "providers": [
         "Arcanedev\\Module\\Providers\\ModuleServiceProvider"

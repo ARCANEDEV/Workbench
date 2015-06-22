@@ -48,6 +48,7 @@ class ModuleTest extends TestCase
         $this->assertEquals($name, $this->module->getName());
         $this->assertEquals($name, $this->module->name);
         $this->assertEquals($name, $this->module->get('name'));
+        $this->assertEquals($name, (string) $this->module);
 
         $alias = 'module';
         $this->assertEquals($alias, $this->module->alias);
@@ -64,9 +65,32 @@ class ModuleTest extends TestCase
         $this->assertEquals($keywords, $this->module->getKeywords());
         $this->assertEquals($keywords, $this->module->get('keywords'));
 
-        $this->assertTrue((bool) $this->module->active);
+        $this->assertTrue($this->module->active);
         $this->assertTrue($this->module->active());
-        $this->assertTrue((bool) $this->module->get('active'));
+        $this->assertTrue($this->module->get('active'));
+    }
+
+    /** @test */
+    public function it_can_enable_and_disable()
+    {
+        $this->assertTrue($this->module->active());
+        $this->assertTrue($this->module->enabled());
+        $this->assertFalse($this->module->notActive());
+        $this->assertFalse($this->module->disabled());
+
+        $this->module->disable();
+
+        $this->assertFalse($this->module->active());
+        $this->assertFalse($this->module->enabled());
+        $this->assertTrue($this->module->notActive());
+        $this->assertTrue($this->module->disabled());
+
+        $this->module->enable();
+
+        $this->assertTrue($this->module->active());
+        $this->assertTrue($this->module->enabled());
+        $this->assertFalse($this->module->notActive());
+        $this->assertFalse($this->module->disabled());
     }
 
     /** @test */
