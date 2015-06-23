@@ -1,4 +1,5 @@
 <?php namespace Arcanedev\Workbench\Services;
+
 use Arcanedev\Workbench\Entities\Module;
 use Illuminate\Database\Query\Builder;
 
@@ -22,7 +23,7 @@ class Migrator
     /**
      * Laravel Application instance.
      *
-     * @var \Illuminate\Foundation\Application.
+     * @var \Illuminate\Foundation\Application
      */
     protected $app;
 
@@ -98,20 +99,7 @@ class Migrator
      */
     public function rollback()
     {
-        $migrations = $this->getLast($this->getMigrations(true));
-        $this->requireFiles($migrations);
-        $migrated   = [];
-
-        foreach ($migrations as $migration) {
-            $data = $this->find($migration);
-            if ($data->count()) {
-                $migrated[] = $migration;
-                $this->down($migration);
-                $data->delete();
-            }
-        }
-
-        return $migrated;
+        return $this->deleteMigrations(true);
     }
 
     /**
@@ -121,8 +109,26 @@ class Migrator
      */
     public function reset()
     {
+        return $this->deleteMigrations();
+    }
+
+    /**
+     * Delete migrations
+     *
+     * @param  bool $onlyLast
+     *
+     * @return array
+     */
+    private function deleteMigrations($onlyLast = false)
+    {
         $migrations = $this->getMigrations(true);
+
+        if ($onlyLast) {
+            $migrations = $this->getLast($migrations);
+        }
+
         $this->requireFiles($migrations);
+
         $migrated   = [];
 
         foreach ($migrations as $migration) {
@@ -239,7 +245,7 @@ class Migrator
      *
      * @return int
      */
-    public function getLastBatchNumber($migrations)
+    public function getLastBatchNumber($migrations = [])
     {
         return $this->table()
             ->whereIn('migration', $migrations)
