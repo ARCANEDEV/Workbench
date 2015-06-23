@@ -2,7 +2,6 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class SeedMakeCommand
@@ -10,12 +9,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class SeedMakeCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -62,10 +55,7 @@ class SeedMakeCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path       = workbench()->getModulePath($this->getModuleName());
-        $seederPath = workbench()->config('paths.generator.seeder');
-
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('seeder');
     }
 
     /**

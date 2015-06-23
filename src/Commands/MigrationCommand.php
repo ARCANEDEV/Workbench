@@ -5,7 +5,6 @@ use Arcanedev\Generators\Migrations\SchemaParser;
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Exceptions\InvalidMigrationNameException;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class MigrationCommand
@@ -13,12 +12,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class MigrationCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -97,10 +90,7 @@ class MigrationCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path          = workbench()->getModulePath($this->getModuleName());
-        $generatorPath = workbench()->config('paths.generator.migration');
-
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('migration');
     }
 
     /**

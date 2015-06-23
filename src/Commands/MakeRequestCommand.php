@@ -2,7 +2,6 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class MakeRequestCommand
@@ -10,12 +9,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class MakeRequestCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -56,13 +49,13 @@ class MakeRequestCommand extends Command
     {
         $module = workbench()->findOrFail($this->getModuleName());
 
-        return (new Stub('/request.stub', [
+        return Stub::create('/request.stub', [
             'MODULE'           => $this->getModuleName(),
             'NAME'             => $this->getFileName(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
             'NAMESPACE'        => $this->getClassNamespace($module),
             'CLASS'            => $this->getClass(),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -72,10 +65,7 @@ class MakeRequestCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path       = workbench()->getModulePath($this->getModuleName());
-        $seederPath = workbench()->config('paths.generator.request');
-
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('request');
     }
 
     /**

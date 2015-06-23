@@ -2,7 +2,6 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class ModelCommand
@@ -10,12 +9,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class ModelCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -84,10 +77,7 @@ class ModelCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path       = workbench()->getModulePath($this->getModuleName());
-        $seederPath = workbench()->config('paths.generator.model');
-
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('model');
     }
 
     /**

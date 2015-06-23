@@ -2,7 +2,6 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class GenerateRouteProviderCommand
@@ -10,12 +9,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class GenerateRouteProviderCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -60,10 +53,7 @@ class GenerateRouteProviderCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path          = workbench()->getModulePath($this->getModuleName());
-        $generatorPath = workbench()->config('paths.generator.provider');
-
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('provider');
     }
 
     /**

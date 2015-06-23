@@ -2,7 +2,6 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class MakeControllerCommand
@@ -10,12 +9,6 @@ use Arcanedev\Workbench\Traits\ModuleCommandTrait;
  */
 class MakeControllerCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -56,14 +49,14 @@ class MakeControllerCommand extends Command
     {
         $module = $this->getModule();
 
-        return (new Stub('/controller.stub', [
+        return Stub::create('/controller.stub', [
             'MODULENAME'        => $module->getStudlyName(),
             'CONTROLLERNAME'    => $this->getFileName(),
             'CLASS'             => $this->getClass(),
             'NAMESPACE'         => $module->getLowername(),
             'MODULE_NAMESPACE'  => config('workbench.namespace'),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -73,10 +66,7 @@ class MakeControllerCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path           = workbench()->getModulePath($this->getModuleName());
-        $controllerPath = workbench()->config('paths.generator.controller');
-
-        return $path . $controllerPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('controller');
     }
 
     /**

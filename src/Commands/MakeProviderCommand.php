@@ -58,11 +58,11 @@ class MakeProviderCommand extends Command
         $stub   = ($this->option('master') == 'scaffold' ? 'scaffold/' : '') . 'provider';
         $module = workbench()->findOrFail($this->getModuleName());
 
-        return (new Stub('/' . $stub . '.stub', [
+        return Stub::create('/' . $stub . '.stub', [
             'NAMESPACE'  => $this->getClassNamespace($module),
             'CLASS'      => $this->getClass(),
             'LOWER_NAME' => $module->getLowerName(),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -72,10 +72,7 @@ class MakeProviderCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path          = workbench()->getModulePath($this->getModuleName());
-        $generatorPath = workbench()->config('paths.generator.provider');
-
-        return $path . $generatorPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('provider');
     }
 
     /**

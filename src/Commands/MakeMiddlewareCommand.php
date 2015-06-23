@@ -2,20 +2,13 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class GenerateFilterCommand
+ * Class MakeMiddlewareCommand
  * @package Arcanedev\Workbench\Commands
  */
-class GenerateFilterCommand extends Command
+class MakeMiddlewareCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -53,10 +46,10 @@ class GenerateFilterCommand extends Command
      */
     protected function getTemplateContents()
     {
-        return (new Stub('/filter.stub', [
+        return Stub::create('/middleware.stub', [
             'NAMESPACE' => $this->getClassNamespace($this->getModule()),
             'CLASS'     => $this->getClass(),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -66,10 +59,7 @@ class GenerateFilterCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path       = workbench()->getModulePath($this->getModuleName());
-        $seederPath = workbench()->config('paths.generator.filter');
-
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('filter');
     }
 
     /**

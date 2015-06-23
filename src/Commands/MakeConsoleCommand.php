@@ -2,20 +2,13 @@
 
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\Command;
-use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class ConsoleCommand
+ * Class MakeConsoleCommand
  * @package Arcanedev\Workbench\Commands
  */
-class ConsoleCommand extends Command
+class MakeConsoleCommand extends Command
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Traits
-     | ------------------------------------------------------------------------------------------------
-     */
-    use ModuleCommandTrait;
-
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -55,11 +48,11 @@ class ConsoleCommand extends Command
      */
     protected function getTemplateContents()
     {
-        return (new Stub('/command.stub', [
+        return Stub::create('/command.stub', [
             'COMMAND_NAME'  => $this->getCommandName(),
             'NAMESPACE'     => $this->getClassNamespace($this->getModule()),
             'CLASS'         => $this->getClass(),
-        ]))->render();
+        ])->render();
     }
 
     /**
@@ -69,10 +62,7 @@ class ConsoleCommand extends Command
      */
     protected function getDestinationFilePath()
     {
-        $path       = workbench()->getModulePath($this->getModuleName());
-        $seederPath = workbench()->config('paths.generator.command');
-
-        return $path . $seederPath . '/' . $this->getFileName() . '.php';
+        return parent::getDestinationFilePath('command');
     }
 
     /**

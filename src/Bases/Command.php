@@ -4,6 +4,7 @@ use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Exceptions\FileAlreadyExistException;
 use Arcanedev\Workbench\Exceptions\InvalidFileNameException;
 use Arcanedev\Workbench\Generators\FileGenerator;
+use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 use Illuminate\Console\Command as IlluminateCommand;
 
 /**
@@ -12,6 +13,12 @@ use Illuminate\Console\Command as IlluminateCommand;
  */
 abstract class Command extends IlluminateCommand
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Traits
+     | ------------------------------------------------------------------------------------------------
+     */
+    use ModuleCommandTrait;
+
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
@@ -63,9 +70,19 @@ abstract class Command extends IlluminateCommand
     /**
      * Get the destination file path.
      *
+     * @param  string $name
+     *
+     * @throws InvalidFileNameException
+     *
      * @return string
      */
-    abstract protected function getDestinationFilePath();
+    protected function getDestinationFilePath($name = '')
+    {
+        $modulePath = workbench()->getModulePath($this->getModuleName());
+        $filePath   = workbench()->config('paths.generator.' . $name, '');
+
+        return $modulePath . $filePath . '/' . $this->getFileName() . '.php';
+    }
 
     /**
      * Get class name.
