@@ -2,6 +2,7 @@
 
 use Arcanedev\Workbench\Entities\Module;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 
 /**
  * Class Migrator
@@ -181,7 +182,7 @@ class Migrator
     /**
      * Require in all the migration files in a given path.
      *
-     * @param array $files
+     * @param Collection|array $files
      */
     public function requireFiles(array $files)
     {
@@ -257,7 +258,7 @@ class Migrator
      *
      * @param  array $migrations
      *
-     * @return array
+     * @return Collection
      */
     public function getLast($migrations)
     {
