@@ -68,9 +68,11 @@ class MakeProviderCommand extends Command
     /**
      * Get the destination file path.
      *
+     * @param  string $name
+     *
      * @return string
      */
-    protected function getDestinationFilePath()
+    protected function getDestinationFilePath($name = '')
     {
         return parent::getDestinationFilePath('provider');
     }
