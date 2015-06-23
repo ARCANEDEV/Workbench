@@ -85,10 +85,9 @@ class MigrateRollbackCommand extends Command
             foreach ($migrated as $migration) {
                 $this->line("Rollback: <info>{$migration}</info>");
             }
-
-            return;
         }
-
-        $this->comment('Nothing to rollback.');
+        else {
+            $this->comment('Nothing to rollback.');
+        }
     }
 }

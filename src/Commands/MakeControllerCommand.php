@@ -54,7 +54,7 @@ class MakeControllerCommand extends Command
             'CONTROLLERNAME'    => $this->getFileName(),
             'CLASS'             => $this->getClass(),
             'NAMESPACE'         => $module->getLowername(),
-            'MODULE_NAMESPACE'  => config('workbench.namespace'),
+            'MODULE_NAMESPACE'  => workbench()->config('namespace'),
             'CLASS_NAMESPACE'   => $this->getClassNamespace($module),
         ])->render();
     }

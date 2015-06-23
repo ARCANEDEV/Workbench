@@ -39,11 +39,11 @@ class GenerateRouteProviderCommand extends Command
      */
     protected function getTemplateContents()
     {
-        return (new Stub('/route-provider.stub', [
+        return Stub::create('/route-provider.stub', [
             'MODULE'           => $this->getModuleName(),
             'NAME'             => $this->getFileName(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
-        ]))->render();
+        ])->render();
     }
 
     /**
