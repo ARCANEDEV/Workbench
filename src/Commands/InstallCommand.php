@@ -60,16 +60,15 @@ class InstallCommand extends Command
     {
         if (is_null($this->argument('name'))) {
             $this->installFromFile();
-
-            return;
         }
-
-        $this->install(
-            $this->argument('name'),
-            $this->argument('version'),
-            $this->option('type'),
-            $this->option('tree')
-        );
+        else {
+            $this->install(
+                $this->argument('name'),
+                $this->argument('version'),
+                $this->option('type'),
+                $this->option('tree')
+            );
+        }
     }
 
     /* ------------------------------------------------------------------------------------------------

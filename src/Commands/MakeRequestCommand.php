@@ -47,10 +47,10 @@ class MakeRequestCommand extends Command
      */
     protected function getTemplateContents()
     {
-        $module = workbench()->findOrFail($this->getModuleName());
+        $module = $this->getModule();
 
         return Stub::create('/request.stub', [
-            'MODULE'           => $this->getModuleName(),
+            'MODULE'           => $module->getStudlyName(),
             'NAME'             => $this->getFileName(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
             'NAMESPACE'        => $this->getClassNamespace($module),

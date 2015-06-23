@@ -86,8 +86,8 @@ class ListCommand extends Command
                 return workbench()->getByStatus(0);
             // no break
 
-            default:
             case 'ordered':
+            default:
                 return workbench()->getOrdered($this->option('dir'));
             // no break
         }
