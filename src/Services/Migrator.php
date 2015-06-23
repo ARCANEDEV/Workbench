@@ -1,7 +1,6 @@
 <?php namespace Arcanedev\Workbench\Services;
 
 use Arcanedev\Workbench\Entities\Module;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
 /**
@@ -184,24 +183,25 @@ class Migrator
      *
      * @param Collection|array $files
      */
-    public function requireFiles(array $files)
+    public function requireFiles($files)
     {
         $path = $this->getPath();
 
         foreach ($files as $file) {
-            $this->app['files']->requireOnce($path.'/'.$file.'.php');
+            $this->app['files']->requireOnce($path . '/' . $file . '.php');
         }
     }
 
     /**
      * Get table instance.
      *
-     * @return string
+     * @return \Illuminate\Database\Query\Builder
      */
     public function table()
     {
         return $this->app['db']->table(config('database.migrations'));
     }
+
     /**
      * Find migration data from database by given migration name.
      *
@@ -211,7 +211,7 @@ class Migrator
      */
     public function find($migration)
     {
-        return $this->table()->whereMigration($migration);
+        return $this->table()->where('migration', $migration);
     }
 
     /**
@@ -266,7 +266,6 @@ class Migrator
             ->where('batch', $this->getLastBatchNumber($migrations))
             ->whereIn('migration', $migrations);
 
-        /** @var Builder $query */
         $result = $query->orderBy('migration', 'desc')->get();
 
         return collect($result)->map(function ($item) {
