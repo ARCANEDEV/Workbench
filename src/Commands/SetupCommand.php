@@ -1,8 +1,8 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Helpers\ComposerFile;
 use Exception;
-use Illuminate\Console\Command;
 
 /**
  * Class SetupCommand

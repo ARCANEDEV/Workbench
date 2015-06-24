@@ -1,14 +1,14 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
  * Class MakeProviderCommand
  * @package Arcanedev\Workbench\Commands
  */
-class MakeProviderCommand extends Command
+class MakeProviderCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Traits

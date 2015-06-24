@@ -1,13 +1,13 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
  * Class SeedMakeCommand
  * @package Arcanedev\Workbench\Commands
  */
-class SeedMakeCommand extends Command
+class SeedMakeCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

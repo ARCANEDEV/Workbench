@@ -1,13 +1,13 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
  * Class MakeMiddlewareCommand
  * @package Arcanedev\Workbench\Commands
  */
-class MakeMiddlewareCommand extends Command
+class MakeMiddlewareCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

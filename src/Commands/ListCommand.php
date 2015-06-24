@@ -1,7 +1,7 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
-use Illuminate\Console\Command;
 
 /**
  * Class ListCommand

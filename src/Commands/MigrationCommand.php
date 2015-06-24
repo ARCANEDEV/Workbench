@@ -3,14 +3,14 @@
 use Arcanedev\Generators\Migrations\NameParser;
 use Arcanedev\Generators\Migrations\SchemaParser;
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 use Arcanedev\Workbench\Exceptions\InvalidMigrationNameException;
 
 /**
  * Class MigrationCommand
  * @package Arcanedev\Workbench\Commands
  */
-class MigrationCommand extends Command
+class MigrationCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

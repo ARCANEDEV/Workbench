@@ -1,13 +1,13 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
  * Class GenerateRouteProviderCommand
  * @package Arcanedev\Workbench\Commands
  */
-class GenerateRouteProviderCommand extends Command
+class GenerateRouteProviderCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

@@ -1,13 +1,13 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
  * Class ModelCommand
  * @package Arcanedev\Workbench\Commands
  */
-class ModelCommand extends Command
+class ModelCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

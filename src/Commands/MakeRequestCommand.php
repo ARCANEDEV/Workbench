@@ -1,13 +1,13 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Stub;
-use Arcanedev\Workbench\Bases\Command;
+use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
  * Class MakeRequestCommand
  * @package Arcanedev\Workbench\Commands
  */
-class MakeRequestCommand extends Command
+class MakeRequestCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties

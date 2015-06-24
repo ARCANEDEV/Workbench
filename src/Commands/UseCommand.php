@@ -1,6 +1,5 @@
 <?php namespace Arcanedev\Workbench\Commands;
-
-use Illuminate\Console\Command;
+use Arcanedev\Workbench\Bases\Command;
 
 /**
  * Class UseCommand

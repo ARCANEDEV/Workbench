@@ -1,7 +1,7 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Generators\ModuleGenerator;
-use Illuminate\Console\Command;
 
 /**
  * Class MakeCommand
@@ -53,6 +53,7 @@ class MakeCommand extends Command
         }
 
         $this->line("<comment>Dump all modules autoload</comment>");
+
         chdir(base_path());
         passthru('composer dump -o -n -q');
     }

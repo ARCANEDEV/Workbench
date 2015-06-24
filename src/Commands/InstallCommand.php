@@ -1,8 +1,8 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
 use Arcanedev\Support\Json;
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Process\Installer;
-use Illuminate\Console\Command;
 
 /**
  * Class InstallCommand
@@ -22,10 +22,10 @@ class InstallCommand extends Command
     protected $signature = 'module:install
                             {name? : The name of module will be installed.}
                             {version? : The version of module will be installed.}
-                            {--timeout= : The process timeout.}
-                            {--path= : The installation path.}
                             {--type= : The type of installation.}
-                            {--tree= : Install the module as a git subtree}
+                            {--tree : Install the module as a git subtree}
+                            {--path= : The installation path.}
+                            {--timeout= : The process timeout.}
                             {--no-update : Disables the automatic update of the dependencies.}';
 
     /**
@@ -58,15 +58,15 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        if (is_null($this->argument('name'))) {
+        if ($name = $this->getStringArg('name')) {
             $this->installFromFile();
         }
         else {
             $this->install(
-                $this->argument('name'),
-                $this->argument('version'),
-                $this->option('type'),
-                $this->option('tree')
+                $this->getStringArg('name'),
+                $this->getStringArg('version'),
+                $this->getStringOption('type'),
+                $this->getBoolOption('tree')
             );
         }
     }
@@ -112,18 +112,18 @@ class InstallCommand extends Command
         $installer = new Installer(
             $name,
             $version,
-            $type ?: $this->option('type'),
-            $tree ?: $this->option('tree')
+            $type ?: $this->getStringOption('type'),
+            $tree ?: $this->getBoolOption('tree')
         );
 
-        $installer->setRepository($this->laravel['modules']);
+        $installer->setRepository(workbench());
         $installer->setConsole($this);
 
         if ($timeout = $this->option('timeout')) {
-            $installer->setTimeout($timeout);
+            $installer->setTimeout((int) $timeout);
         }
 
-        if ($path = $this->option('path')) {
+        if ($path = $this->getStringOption('path')) {
             $installer->setPath($path);
         }
 

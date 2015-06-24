@@ -1,8 +1,8 @@
 <?php namespace Arcanedev\Workbench\Commands;
 
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\MigrationPublisher;
-use Illuminate\Console\Command;
 
 /**
  * Class PublishMigrationCommand
