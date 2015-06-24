@@ -89,7 +89,7 @@ class ModelCommand extends BenchCommand
      */
     protected function getFileName()
     {
-        return str_studly($this->argument('model'));
+        return str_studly($this->getStringArg('model'));
     }
 
     /**

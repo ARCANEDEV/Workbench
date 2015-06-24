@@ -47,7 +47,7 @@ class MigrationCommand extends BenchCommand
      */
     protected function getTemplateContents()
     {
-        $parser = new NameParser($this->argument('name'));
+        $parser = new NameParser($this->getStringArg('name'));
 
         if ($parser->isCreate()) {
             return Stub::create('/migration/create.stub', [
@@ -102,7 +102,7 @@ class MigrationCommand extends BenchCommand
      */
     protected function getClass()
     {
-        return str_studly($this->argument('name'));
+        return str_studly($this->getStringArg('name'));
     }
 
     /**
@@ -122,7 +122,7 @@ class MigrationCommand extends BenchCommand
      */
     private function getSchemaParser()
     {
-        return new SchemaParser($this->option('fields'));
+        return new SchemaParser($this->getStringOption('fields'));
     }
 
     /**
@@ -132,7 +132,7 @@ class MigrationCommand extends BenchCommand
      */
     private function getSchemaName()
     {
-        return (string) $this->argument('name');
+        return $this->getStringArg('name');
     }
 
     /* ------------------------------------------------------------------------------------------------

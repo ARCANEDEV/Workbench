@@ -45,7 +45,7 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        $module = str_studly($this->argument('module')) ?: $this->getModuleName();
+        $module = str_studly($this->getStringArg('module')) ?: $this->getModuleName();
 
         if ($module) {
             if (workbench()->has($module)) {

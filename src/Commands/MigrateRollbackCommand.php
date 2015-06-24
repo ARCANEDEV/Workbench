@@ -49,17 +49,13 @@ class MigrateRollbackCommand extends Command
      */
     public function handle()
     {
-        $module = $this->argument('module');
-
-        if ( ! empty($module)) {
+        if ( ! empty($module = $this->getStringArg('module'))) {
             $this->rollback($module);
 
             return;
         }
 
         foreach (workbench()->all() as $module) {
-            /** @var Module $module */
-            $this->line('Running for module: <info>' . $module->getName() . '</info>');
             $this->rollback($module);
         }
     }
@@ -79,6 +75,7 @@ class MigrateRollbackCommand extends Command
             $module = workbench()->findOrFail($module);
         }
 
+        $this->line('Running for module: <info>' . $module->getName() . '</info>');
         $migrated = (new Migrator($module))->rollback();
 
         if (count($migrated)) {

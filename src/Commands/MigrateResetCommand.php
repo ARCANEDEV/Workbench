@@ -51,15 +51,13 @@ class MigrateResetCommand extends Command
      */
     public function handle()
     {
-        if ( ! empty($module = $this->argument('module'))) {
+        if ( ! empty($module = $this->getStringArg('module'))) {
             $this->reset($module);
 
             return;
         }
 
         foreach (workbench()->all() as $module) {
-            /** @var Module $module */
-            $this->line('Running for module: <info>' . $module->getName() . '</info>');
             $this->reset($module);
         }
     }
@@ -78,6 +76,8 @@ class MigrateResetCommand extends Command
         if (is_string($module)) {
             $module = workbench()->findOrFail($module);
         }
+
+        $this->line('Running for module: <info>' . $module->getName() . '</info>');
 
         $migrated = (new Migrator($module))->reset();
 

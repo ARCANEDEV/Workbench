@@ -71,24 +71,28 @@ class ListCommand extends Command
      */
     private function getModules()
     {
+        $workbench = workbench();
+
         if ( ! $this->option('only')) {
             return workbench()->all();
         }
 
-        $choice = $this->anticipate('Select only modules that are ?', ['enabled', 'disabled', 'ordered']);
+        $choice = $this->anticipate('Select only modules that are ?', [
+            'enabled', 'disabled', 'ordered'
+        ]);
 
         switch ($choice) {
             case 'enabled':
-                return workbench()->getByStatus(1);
+                return $workbench->getByStatus(1);
             // no break
 
             case 'disabled':
-                return workbench()->getByStatus(0);
+                return $workbench->getByStatus(0);
             // no break
 
             case 'ordered':
             default:
-                return workbench()->getOrdered($this->option('dir'));
+                return $workbench->getOrdered($this->getStringOption('dir'));
             // no break
         }
     }

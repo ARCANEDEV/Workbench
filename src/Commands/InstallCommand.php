@@ -63,7 +63,7 @@ class InstallCommand extends Command
         }
         else {
             $this->install(
-                $this->getStringArg('name'),
+                $name,
                 $this->getStringArg('version'),
                 $this->getStringOption('type'),
                 $this->getBoolOption('tree')

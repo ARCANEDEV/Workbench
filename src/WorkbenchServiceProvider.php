@@ -105,7 +105,7 @@ class WorkbenchServiceProvider extends ServiceProvider
             $path   = __DIR__ . '/../stubs';
 
             if ($config->get('workbench.stubs.enabled', false) === true) {
-                $path = $config->get('workbench.stubs.path', $path);
+                $path = (string) $config->get('workbench.stubs.path', $path);
             }
 
             Stub::setBasePath($path);

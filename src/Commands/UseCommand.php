@@ -37,7 +37,7 @@ class UseCommand extends Command
      */
     public function handle()
     {
-        $module = str_studly($this->argument('module'));
+        $module = str_studly($this->getStringArg('module'));
 
         if ( ! workbench()->has($module)) {
             workbench()->setUsed($module);

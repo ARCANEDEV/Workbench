@@ -38,7 +38,7 @@ class PublishCommand extends Command
      */
     public function handle()
     {
-        if ($name = $this->argument('module')) {
+        if ($name = $this->getStringArg('module')) {
             $this->publish($name);
         }
         else {

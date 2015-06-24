@@ -47,12 +47,12 @@ class MakeCommand extends Command
                 ->setWorkbench(workbench())
                 ->setConfig(config())
                 ->setConsole($this)
-                ->setForce($this->option('force'))
-                ->setPlain($this->option('plain'))
+                ->setForce($this->getBoolOption('force'))
+                ->setPlain($this->getBoolOption('plain'))
                 ->generate();
         }
 
-        $this->line("<comment>Dump all modules autoload</comment>");
+        $this->line('<comment>Dump all modules autoload</comment>');
 
         chdir(base_path());
         passthru('composer dump -o -n -q');

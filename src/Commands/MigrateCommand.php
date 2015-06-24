@@ -34,6 +34,24 @@ class MigrateCommand extends Command
     protected $description = 'Migrate the migrations from the specified module or from all modules.';
 
     /* ------------------------------------------------------------------------------------------------
+     |  Getters & Setters
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get migration path for specific module.
+     *
+     * @param  Module $module
+     *
+     * @return string
+     */
+    private function getPath(Module $module)
+    {
+        $path = $module->getExtraPath(config('modules.paths.generator.migration'));
+
+        return str_replace(base_path(), '', $path);
+    }
+
+    /* ------------------------------------------------------------------------------------------------
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
@@ -42,7 +60,7 @@ class MigrateCommand extends Command
      */
     public function handle()
     {
-        $name = $this->argument('module');
+        $name = $this->getStringArg('module');
 
         if ($name) {
             $this->migrate($name);
@@ -50,7 +68,9 @@ class MigrateCommand extends Command
             return;
         }
 
-        foreach (workbench()->getOrdered($this->option('direction')) as $module) {
+        $modules = workbench()->getOrdered($this->getStringOption('dir'));
+
+        foreach ($modules as $module) {
             /** @var Module $module */
             $this->line('Running for module: <info>' . $module->getName() . '</info>');
             $this->migrate($module);
@@ -72,27 +92,13 @@ class MigrateCommand extends Command
 
         $this->call('migrate', [
             '--path'     => $this->getPath($module),
-            '--database' => $this->option('db'),
-            '--pretend'  => $this->option('pretend'),
-            '--force'    => $this->option('force'),
+            '--database' => $this->getStringOption('db'),
+            '--pretend'  => $this->getBoolOption('pretend'),
+            '--force'    => $this->getBoolOption('force'),
         ]);
 
-        if ($this->option('seed')) {
+        if ($this->getBoolOption('seed')) {
             $this->call('module:seed', ['module' => $name]);
         }
-    }
-
-    /**
-     * Get migration path for specific module.
-     *
-     * @param  Module $module
-     *
-     * @return string
-     */
-    private function getPath(Module $module)
-    {
-        $path = $module->getExtraPath(config('modules.paths.generator.migration'));
-
-        return str_replace(base_path(), '', $path);
     }
 }
