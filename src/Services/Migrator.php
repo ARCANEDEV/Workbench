@@ -205,9 +205,9 @@ class Migrator
     /**
      * Find migration data from database by given migration name.
      *
-     * @param string $migration
+     * @param  string $migration
      *
-     * @return object
+     * @return \Illuminate\Database\Query\Builder
      */
     public function find($migration)
     {
@@ -217,9 +217,9 @@ class Migrator
     /**
      * Save new migration to database.
      *
-     * @param string $migration
+     * @param  string $migration
      *
-     * @return mixed
+     * @return bool
      */
     public function log($migration)
     {
@@ -232,7 +232,7 @@ class Migrator
     /**
      * Get the next migration batch number.
      *
-     * @return int
+     * @return double|int
      */
     public function getNextBatchNumber()
     {
@@ -244,7 +244,7 @@ class Migrator
      *
      * @param  array $migrations
      *
-     * @return int
+     * @return double|int
      */
     public function getLastBatchNumber($migrations = [])
     {

@@ -111,7 +111,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get scanned modules paths.
      *
-     * @return array
+     * @return string[]
      */
     public function getScanPaths()
     {
@@ -290,7 +290,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Determine whether the given module exist.
      *
-     * @param $name
+     * @param  string $name
      *
      * @return bool
      */
@@ -447,15 +447,13 @@ class Workbench implements WorkbenchInterface, Countable
      * Get a specific config data from a configuration file.
      *
      * @param  string|null $key
-     * @param  mixed|null  $default
+     * @param  mixed       $default
      *
      * @return mixed
      */
     public function config($key = null, $default = null)
     {
-        $key = 'workbench' . (is_null($key) ? '' : '.' . $key);
-
-        return $this->app['config']->get($key, $default);
+        return config('workbench' . (is_null($key) ? '' : '.' . $key), $default);
     }
 
     /**
@@ -485,7 +483,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get module used for cli session.
      *
-     * @return string
+     * @return Module
      */
     public function getUsedNow()
     {
@@ -497,7 +495,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Set module used for cli session.
      *
-     * @param $name
+     * @param  string $name
      *
      * @throws ModuleNotFoundException
      */
@@ -510,7 +508,7 @@ class Workbench implements WorkbenchInterface, Countable
     /**
      * Get used now.
      *
-     * @return string
+     * @return Module
      */
     public function getUsed()
     {
