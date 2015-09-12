@@ -5,8 +5,10 @@ use Arcanedev\Workbench\Helpers\ComposerFile;
 use Exception;
 
 /**
- * Class SetupCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     SetupCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class SetupCommand extends Command
 {

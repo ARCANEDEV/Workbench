@@ -5,8 +5,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Process\Installer;
 
 /**
- * Class InstallCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     InstallCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class InstallCommand extends Command
 {

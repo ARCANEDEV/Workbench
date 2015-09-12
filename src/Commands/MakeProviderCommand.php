@@ -5,8 +5,10 @@ use Arcanedev\Workbench\Bases\BenchCommand;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class MakeProviderCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MakeProviderCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MakeProviderCommand extends BenchCommand
 {

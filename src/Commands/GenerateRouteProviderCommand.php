@@ -4,8 +4,10 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
- * Class GenerateRouteProviderCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     GenerateRouteProviderCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class GenerateRouteProviderCommand extends BenchCommand
 {

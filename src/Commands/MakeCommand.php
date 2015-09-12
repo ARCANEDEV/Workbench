@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Generators\ModuleGenerator;
 
 /**
- * Class MakeCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MakeCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MakeCommand extends Command
 {

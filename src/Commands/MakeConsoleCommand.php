@@ -4,8 +4,10 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
- * Class MakeConsoleCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MakeConsoleCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MakeConsoleCommand extends BenchCommand
 {

@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class EnableCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     EnableCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class EnableCommand extends Command
 {

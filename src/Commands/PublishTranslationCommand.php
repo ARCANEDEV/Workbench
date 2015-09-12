@@ -5,8 +5,10 @@ use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\LangPublisher;
 
 /**
- * Class PublishTranslationCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     PublishTranslationCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class PublishTranslationCommand extends Command
 {
@@ -19,7 +21,7 @@ class PublishTranslationCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:publish-translation
+    protected $signature = 'module:publish-translations
                             {module? : The name of module will be used.}';
 
     /**

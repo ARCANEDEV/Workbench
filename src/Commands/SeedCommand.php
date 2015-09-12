@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class SeedCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     SeedCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class SeedCommand extends Command
 {

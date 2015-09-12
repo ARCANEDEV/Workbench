@@ -6,8 +6,10 @@ use Arcanedev\Workbench\Services\Migrator;
 use Arcanedev\Workbench\Traits\MigrationLoaderTrait;
 
 /**
- * Class MigrateRollbackCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MigrateRollbackCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MigrateRollbackCommand extends Command
 {

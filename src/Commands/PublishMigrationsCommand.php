@@ -2,14 +2,15 @@
 
 use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
+use Arcanedev\Workbench\Publishers\MigrationPublisher;
 
 /**
- * Class     DumpCommand
+ * Class     PublishMigrationsCommand
  *
  * @package  Arcanedev\Workbench\Commands
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class DumpCommand extends Command
+class PublishMigrationsCommand extends Command
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
@@ -20,15 +21,15 @@ class DumpCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'module:dump
-                            {module? : The Module name.}';
+    protected $signature = 'module:publish-migrations
+                            {module? : The name of module being used.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Dump-autoload the specified module or for all module.';
+    protected $description = "Publish a module's migrations to the application";
 
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
@@ -36,23 +37,18 @@ class DumpCommand extends Command
      */
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
     public function handle()
     {
-        $this->info('Generating optimized autoload modules.');
+        if ($name = $this->getStringArg('module')) {
+            $module = workbench()->findOrFail($name);
+            $this->publish($module);
 
-        $module = $this->argument('module');
-
-        if ($module && is_string($module)) {
-            $this->dump($module);
+            return;
         }
-        else {
-            foreach (workbench()->all() as $module) {
-                /** @var Module $module */
-                $this->dump($module->getStudlyName());
-            }
+
+        foreach (workbench()->enabled() as $module) {
+            $this->publish($module);
         }
     }
 
@@ -61,16 +57,15 @@ class DumpCommand extends Command
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Dump module
+     * Publish migration for the specified module.
      *
-     * @param string $module
+     * @param Module $module
      */
-    private function dump($module)
+    private function publish(Module $module)
     {
-        $module = workbench()->findOrFail($module);
-
-        $this->line("<comment>Running for module</comment>: {$module}");
-        chdir($module->getPath());
-        passthru('composer dump -o -n -q');
+        (new MigrationPublisher($module))
+            ->setWorkbench(workbench())
+            ->setConsole($this)
+            ->publish();
     }
 }

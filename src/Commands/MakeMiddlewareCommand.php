@@ -4,8 +4,10 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
- * Class MakeMiddlewareCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MakeMiddlewareCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MakeMiddlewareCommand extends BenchCommand
 {

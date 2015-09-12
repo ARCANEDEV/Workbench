@@ -6,8 +6,10 @@ use Arcanedev\Workbench\Services\Migrator;
 use Arcanedev\Workbench\Traits\MigrationLoaderTrait;
 
 /**
- * Class MigrateResetCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MigrateResetCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MigrateResetCommand extends Command
 {

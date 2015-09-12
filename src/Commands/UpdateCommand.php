@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class UpdateCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     UpdateCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class UpdateCommand extends Command
 {

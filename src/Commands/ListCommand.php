@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
 
 /**
- * Class ListCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     ListCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class ListCommand extends Command
 {

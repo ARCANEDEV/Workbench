@@ -7,10 +7,12 @@ use Arcanedev\Workbench\Bases\BenchCommand;
 use Arcanedev\Workbench\Exceptions\InvalidMigrationNameException;
 
 /**
- * Class MigrationCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MakeMigrationCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class MigrationCommand extends BenchCommand
+class MakeMigrationCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
@@ -149,3 +151,4 @@ class MigrationCommand extends BenchCommand
         $this->call('optimize');
     }
 }
+

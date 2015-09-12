@@ -5,8 +5,10 @@ use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Publishers\AssetPublisher;
 
 /**
- * Class PublishCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     PublishCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class PublishCommand extends Command
 {

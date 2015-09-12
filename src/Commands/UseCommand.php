@@ -1,9 +1,12 @@
 <?php namespace Arcanedev\Workbench\Commands;
+
 use Arcanedev\Workbench\Bases\Command;
 
 /**
- * Class UseCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     UseCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class UseCommand extends Command
 {

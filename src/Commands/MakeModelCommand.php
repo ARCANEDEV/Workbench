@@ -4,12 +4,12 @@ use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Bases\BenchCommand;
 
 /**
- * Class     MakeRequestCommand
+ * Class     MakeModelCommand
  *
  * @package  Arcanedev\Workbench\Commands
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class MakeRequestCommand extends BenchCommand
+class MakeModelCommand extends BenchCommand
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
@@ -20,28 +20,39 @@ class MakeRequestCommand extends BenchCommand
      *
      * @var string
      */
-    protected $argumentName = 'name';
+    protected $argumentName = 'model';
 
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'module:make-request
-                            {name : The name of the form request class.}
-                            {module? : The name of module will be used.}';
+    protected $signature = 'module:make-model
+                            {model : The name of model will be created.}
+                            {module? : The name of module will be used.}
+                            {--fillable : The fillable attributes.}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Generate new form request class for the specified module.';
+    protected $description = 'Generate new model for the specified module.';
 
     /* ------------------------------------------------------------------------------------------------
-     |  Getters & Setters
+     |  Other Functions
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Get default namespace.
+     *
+     * @return string
+     */
+    protected function getDefaultNamespace()
+    {
+        return workbench()->config('paths.generator.model');
+    }
+
     /**
      * Get template contents.
      *
@@ -51,9 +62,10 @@ class MakeRequestCommand extends BenchCommand
     {
         $module = $this->getModule();
 
-        return Stub::create('/request.stub', [
-            'MODULE'           => $module->getStudlyName(),
+        return Stub::create('/model.stub', [
+            'MODULE'           => $this->getModuleName(),
             'NAME'             => $this->getFileName(),
+            'FILLABLE'         => $this->getFillable(),
             'MODULE_NAMESPACE' => workbench()->config('namespace'),
             'NAMESPACE'        => $this->getClassNamespace($module),
             'CLASS'            => $this->getClass(),
@@ -69,16 +81,34 @@ class MakeRequestCommand extends BenchCommand
      */
     protected function getDestinationFilePath($name = '')
     {
-        return parent::getDestinationFilePath('request');
+        return parent::getDestinationFilePath('model');
     }
 
     /**
-     * Get default namespace.
+     * Get model name
      *
      * @return string
      */
-    protected function getDefaultNamespace()
+    protected function getFileName()
     {
-        return 'Requests';
+        return str_studly($this->getStringArg('model'));
+    }
+
+    /**
+     * Get fillable
+     *
+     * @return string
+     */
+    private function getFillable()
+    {
+        $fillable = $this->option('fillable');
+
+        if ( ! is_null($fillable)) {
+            $arrays = explode(',', $fillable);
+
+            return json_encode($arrays);
+        }
+
+        return '[]';
     }
 }

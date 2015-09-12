@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
 
 /**
- * Class MigrateCommand
- * @package Arcanedev\Workbench\Commands
+ * Class     MigrateCommand
+ *
+ * @package  Arcanedev\Workbench\Commands
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class MigrateCommand extends Command
 {
