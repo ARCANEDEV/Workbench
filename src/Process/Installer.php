@@ -1,13 +1,15 @@
 <?php namespace Arcanedev\Workbench\Process;
 
+use Arcanedev\Workbench\Workbench;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Arcanedev\Workbench\Workbench;
 use Symfony\Component\Process\Process;
 
 /**
- * Class Installer
- * @package Arcanedev\Workbench\Process
+ * Class     Installer
+ *
+ * @package  Arcanedev\Workbench\Process
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class Installer
 {
@@ -74,10 +76,10 @@ class Installer
     /**
      * The constructor.
      *
-     * @param string $name
-     * @param string $version
-     * @param string $type
-     * @param bool   $tree
+     * @param  string  $name
+     * @param  string  $version
+     * @param  string  $type
+     * @param  bool    $tree
      */
     public function __construct($name, $version = null, $type = null, $tree = false)
     {
@@ -94,19 +96,21 @@ class Installer
     /**
      * Set destination path.
      *
-     * @param string $path
+     * @param  string  $path
      *
-     * @return $this
+     * @return self
      */
     public function setPath($path)
     {
         $this->path = $path;
+
         return $this;
     }
+
     /**
      * Set the module repository instance.
      *
-     * @param  Workbench $repository
+     * @param  Workbench  $repository
      *
      * @return self
      */
@@ -134,7 +138,7 @@ class Installer
     /**
      * Set process timeout.
      *
-     * @param  int $timeout
+     * @param  int  $timeout
      *
      * @return self
      */
@@ -197,6 +201,8 @@ class Installer
 
         if ($this->console instanceof Command) {
             $process->run(function($type, $line) {
+                unset($type);
+
                 $this->console->line($line);
             });
         }

@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Contracts\RunableInterface;
 use Arcanedev\Workbench\Workbench;
 
 /**
- * Class Runner
- * @package Arcanedev\Workbench\Process
+ * Class     Runner
+ *
+ * @package  Arcanedev\Workbench\Process
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class Runner implements RunableInterface
 {
@@ -27,7 +29,7 @@ class Runner implements RunableInterface
     /**
      * The constructor.
      *
-     * @param Workbench $module
+     * @param  Workbench  $module
      */
     public function __construct(Workbench $module)
     {
@@ -41,7 +43,9 @@ class Runner implements RunableInterface
     /**
      * Run the given command.
      *
-     * @param string $command
+     * @param  string  $command
+     *
+     * @return mixed|void
      */
     public function run($command)
     {

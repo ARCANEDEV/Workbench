@@ -1,5 +1,11 @@
 <?php namespace Arcanedev\Workbench\Process;
 
+/**
+ * Class     Updater
+ *
+ * @package  Arcanedev\Workbench\Process
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class Updater extends Runner
 {
     /* ------------------------------------------------------------------------------------------------
@@ -9,7 +15,7 @@ class Updater extends Runner
     /**
      * Update the dependencies for the specified module by given the module name.
      *
-     * @param string $module
+     * @param  string  $module
      */
     public function update($module)
     {
