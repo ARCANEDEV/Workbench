@@ -4,8 +4,10 @@ use Arcanedev\Workbench\Entities\Module;
 use Illuminate\Support\Collection;
 
 /**
- * Class Migrator
- * @package Arcanedev\Workbench\Services
+ * Class     Migrator
+ *
+ * @package  Arcanedev\Workbench\Services
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class Migrator
 {
@@ -34,7 +36,7 @@ class Migrator
     /**
      * Create new instance.
      *
-     * @param Module $module
+     * @param  Module  $module
      */
     public function __construct(Module $module)
     {
@@ -61,13 +63,13 @@ class Migrator
     /**
      * Get migration files.
      *
-     * @param  boolean $reverse
+     * @param  boolean  $reverse
      *
      * @return array
      */
     public function getMigrations($reverse = false)
     {
-        $files = $this->app['files']->glob($this->getPath().'/*_*.php');
+        $files = $this->app['files']->glob($this->getPath() . DS . '*_*.php');
         // Once we have the array of files in the directory we will just remove the
         // extension and take the basename of the file which is all we need when
         // finding the migrations that haven't been run against the databases.
@@ -115,7 +117,7 @@ class Migrator
     /**
      * Delete migrations
      *
-     * @param  bool $onlyLast
+     * @param  bool  $onlyLast
      *
      * @return array
      */
@@ -146,7 +148,7 @@ class Migrator
     /**
      * Run down schema from the given migration name.
      *
-     * @param string $migration
+     * @param  string  $migration
      */
     public function down($migration)
     {
@@ -156,7 +158,7 @@ class Migrator
     /**
      * Run up schema from the given migration name.
      *
-     * @param string $migration
+     * @param  string  $migration
      */
     public function up($migration)
     {
@@ -166,7 +168,7 @@ class Migrator
     /**
      * Resolve a migration instance from a file.
      *
-     * @param  string $file
+     * @param  string  $file
      *
      * @return object
      */
@@ -181,7 +183,7 @@ class Migrator
     /**
      * Require in all the migration files in a given path.
      *
-     * @param Collection|array $files
+     * @param  Collection|array  $files
      */
     public function requireFiles($files)
     {
@@ -205,7 +207,7 @@ class Migrator
     /**
      * Find migration data from database by given migration name.
      *
-     * @param  string $migration
+     * @param  string  $migration
      *
      * @return \Illuminate\Database\Query\Builder
      */
@@ -217,7 +219,7 @@ class Migrator
     /**
      * Save new migration to database.
      *
-     * @param  string $migration
+     * @param  string  $migration
      *
      * @return bool
      */
@@ -242,7 +244,7 @@ class Migrator
     /**
      * Get the last migration batch number.
      *
-     * @param  array $migrations
+     * @param  array  $migrations
      *
      * @return double|int
      */
@@ -256,7 +258,7 @@ class Migrator
     /**
      * Get the last migration batch.
      *
-     * @param  array $migrations
+     * @param  array  $migrations
      *
      * @return Collection
      */
