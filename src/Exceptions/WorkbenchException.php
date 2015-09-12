@@ -1,9 +1,9 @@
 <?php namespace Arcanedev\Workbench\Exceptions;
 
 /**
- * Class     InvalidMigrationNameException
+ * Class     WorkbenchException
  *
  * @package  Arcanedev\Workbench\Exceptions
  * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class InvalidMigrationNameException extends WorkbenchException {}
+class WorkbenchException extends \Exception {}

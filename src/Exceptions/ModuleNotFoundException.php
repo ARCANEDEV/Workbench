@@ -1,3 +1,9 @@
 <?php namespace Arcanedev\Workbench\Exceptions;
 
-class ModuleNotFoundException extends \Exception {}
+/**
+ * Class     ModuleNotFoundException
+ *
+ * @package  Arcanedev\Workbench\Exceptions
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
+class ModuleNotFoundException extends WorkbenchException {}
