@@ -1,7 +1,17 @@
 <?php namespace Arcanedev\Workbench\Traits;
 
+/**
+ * Trait     MigrationLoaderTrait
+ *
+ * @package  Arcanedev\Workbench\Traits
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 trait MigrationLoaderTrait
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Include all migrations files from the specified module.
      *

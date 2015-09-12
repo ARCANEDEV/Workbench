@@ -1,11 +1,14 @@
 <?php namespace Arcanedev\Workbench\Traits;
+
+use Arcanedev\Workbench\Bases\Command;
 use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Exceptions\ModuleNotFoundException;
-use Illuminate\Console\Command;
 
 /**
- * Trait ModuleCommandTrait
- * @package Arcanedev\Workbench\Traits
+ * Trait     ModuleCommandTrait
+ *
+ * @package  Arcanedev\Workbench\Traits
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 trait ModuleCommandTrait
 {
