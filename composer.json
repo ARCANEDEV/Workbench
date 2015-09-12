@@ -15,7 +15,7 @@
         "php": ">=5.5.9",
         "arcanedev/composer": "~1.0",
         "arcanedev/generators": "~2.0",
-        "arcanedev/support": "~2.0",
+        "arcanedev/support": "~3.0",
         "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
