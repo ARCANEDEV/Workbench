@@ -7,6 +7,12 @@ use Illuminate\Config\Repository as Config;
 use Illuminate\Console\Command as Console;
 use Illuminate\Filesystem\Filesystem;
 
+/**
+ * Class     ModuleGenerator
+ *
+ * @package  Arcanedev\Workbench\Generators
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class ModuleGenerator extends Generator
 {
     /* ------------------------------------------------------------------------------------------------
@@ -69,11 +75,11 @@ class ModuleGenerator extends Generator
     /**
      * The constructor.
      *
-     * @param string     $name
-     * @param Workbench  $workbench
-     * @param Config     $config
-     * @param Filesystem $filesystem
-     * @param Console    $console
+     * @param  string      $name
+     * @param  Workbench   $workbench
+     * @param  Config      $config
+     * @param  Filesystem  $filesystem
+     * @param  Console     $console
      */
     public function __construct(
         $name,
@@ -96,7 +102,7 @@ class ModuleGenerator extends Generator
     /**
      * Set plain flag.
      *
-     * @param  bool $plain
+     * @param  bool  $plain
      *
      * @return self
      */
@@ -120,7 +126,7 @@ class ModuleGenerator extends Generator
     /**
      * Set the name of module will created.
      *
-     * @param  string $name
+     * @param  string  $name
      *
      * @return self
      */
@@ -144,7 +150,7 @@ class ModuleGenerator extends Generator
     /**
      * Set the laravel config instance.
      *
-     * @param  Config $config
+     * @param  Config  $config
      *
      * @return self
      */
@@ -168,7 +174,7 @@ class ModuleGenerator extends Generator
     /**
      * Set the laravel filesystem instance.
      *
-     * @param  Filesystem $filesystem
+     * @param  Filesystem  $filesystem
      *
      * @return self
      */
@@ -192,7 +198,7 @@ class ModuleGenerator extends Generator
     /**
      * Set the laravel console instance.
      *
-     * @param  Console $console
+     * @param  Console  $console
      *
      * @return self
      */
@@ -216,9 +222,9 @@ class ModuleGenerator extends Generator
     /**
      * Set the workbench instance.
      *
-     * @param mixed $workbench
+     * @param  mixed  $workbench
      *
-     * @return $this
+     * @return self
      */
     public function setWorkbench(Workbench $workbench)
     {
@@ -250,9 +256,9 @@ class ModuleGenerator extends Generator
     /**
      * Set force status.
      *
-     * @param  bool|int $force
+     * @param  bool|int  $force
      *
-     * @return $this
+     * @return self
      */
     public function setForce($force)
     {
@@ -298,7 +304,7 @@ class ModuleGenerator extends Generator
     private function generateFolders()
     {
         foreach ($this->getFolders() as $folder) {
-            $path = $this->workbench->getModulePath($this->getName()) . '/' . $folder;
+            $path = $this->workbench->getModulePath($this->getName()) . DS . $folder;
             $this->filesystem->makeDirectory($path, 0755, true);
             $this->generateGitKeep($path);
         }
@@ -307,11 +313,11 @@ class ModuleGenerator extends Generator
     /**
      * Generate git keep to the specified path.
      *
-     * @param string $path
+     * @param  string  $path
      */
     private function generateGitKeep($path)
     {
-        $this->filesystem->put($path . '/.gitkeep', '');
+        $this->filesystem->put($path . DS . '.gitkeep', '');
     }
 
     /**
@@ -357,14 +363,14 @@ class ModuleGenerator extends Generator
     /**
      * Get the contents of the specified stub file by given stub name.
      *
-     * @param  string $stub
+     * @param  string  $stub
      *
      * @return Stub
      */
     protected function getStubContents($stub)
     {
         return (new Stub(
-            '/' . $stub . '.stub',
+            DS . $stub . '.stub',
             $this->getReplacement($stub))
         )->render();
     }
@@ -380,7 +386,7 @@ class ModuleGenerator extends Generator
     /**
      * Get array replacement for the specified stub.
      *
-     * @param  string $stub
+     * @param  string  $stub
      *
      * @return array
      */
@@ -410,7 +416,7 @@ class ModuleGenerator extends Generator
     /**
      * Get replacement method name
      *
-     * @param  string $name
+     * @param  string  $name
      *
      * @return string
      */

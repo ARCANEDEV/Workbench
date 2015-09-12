@@ -3,6 +3,12 @@
 use Arcanedev\Workbench\Exceptions\FileAlreadyExistException;
 use Illuminate\Filesystem\Filesystem;
 
+/**
+ * Class     FileGenerator
+ *
+ * @package  Arcanedev\Workbench\Generators
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class FileGenerator
 {
     /* ------------------------------------------------------------------------------------------------
@@ -37,9 +43,9 @@ class FileGenerator
     /**
      * The constructor.
      *
-     * @param string          $path
-     * @param string          $contents
-     * @param Filesystem|null $filesystem
+     * @param  string           $path
+     * @param  string           $contents
+     * @param  Filesystem|null  $filesystem
      */
     public function __construct($path, $contents, $filesystem = null)
     {
@@ -65,7 +71,7 @@ class FileGenerator
     /**
      * Set contents.
      *
-     * @param  string $contents
+     * @param  string  $contents
      *
      * @return self
      */
@@ -89,7 +95,7 @@ class FileGenerator
     /**
      * Set filesystem.
      *
-     * @param  Filesystem $filesystem
+     * @param  Filesystem  $filesystem
      *
      * @return self
      */
@@ -113,7 +119,7 @@ class FileGenerator
     /**
      * Set path.
      *
-     * @param  string $path
+     * @param  string  $path
      *
      * @return self
      */
