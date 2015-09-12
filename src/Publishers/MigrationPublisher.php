@@ -2,6 +2,12 @@
 
 use Arcanedev\Workbench\Bases\Publisher;
 
+/**
+ * Class     MigrationPublisher
+ *
+ * @package  Arcanedev\Workbench\Publishers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class MigrationPublisher extends Publisher
 {
     /* ------------------------------------------------------------------------------------------------

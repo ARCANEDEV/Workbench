@@ -2,6 +2,12 @@
 
 use Arcanedev\Workbench\Bases\Publisher;
 
+/**
+ * Class     LangPublisher
+ *
+ * @package  Arcanedev\Workbench\Publishers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class LangPublisher extends Publisher
 {
     /* ------------------------------------------------------------------------------------------------
