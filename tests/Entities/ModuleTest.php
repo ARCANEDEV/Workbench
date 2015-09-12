@@ -4,6 +4,12 @@ use Arcanedev\Workbench\Entities\Module;
 use Arcanedev\Workbench\Tests\TestCase;
 use Mockery as m;
 
+/**
+ * Class     ModuleTest
+ *
+ * @package  Arcanedev\Workbench\Tests\Entities
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class ModuleTest extends TestCase
 {
     /* ------------------------------------------------------------------------------------------------

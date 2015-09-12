@@ -1,12 +1,15 @@
 <?php namespace Arcanedev\Workbench\Tests;
 
 use Arcanedev\Workbench\WorkbenchServiceProvider;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
- * Class TestCase
- * @package Arcanedev\Workbench\Tests
+ * Class     TestCase
+ *
+ * @package  Arcanedev\Workbench\Tests
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-abstract class TestCase extends \Orchestra\Testbench\TestCase
+abstract class TestCase extends BaseTestCase
 {
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
