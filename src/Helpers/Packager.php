@@ -1,9 +1,9 @@
 <?php namespace Arcanedev\Workbench\Helpers;
 
-use ZipArchive;
-use RuntimeException;
 use GuzzleHttp\Client;
 use Illuminate\Filesystem\Filesystem;
+use RuntimeException;
+use ZipArchive;
 
 /**
  * Class     Packager
@@ -76,7 +76,7 @@ class Packager
      */
     public function replaceAndSave($oldFile, $search, $replace, $newFile = null)
     {
-        $newFile   = ($newFile == null) ? $oldFile : $newFile ;
+        $newFile   = ($newFile === null) ? $oldFile : $newFile ;
         $file      = $this->files->get($oldFile);
         $replacing = str_replace($search, $replace, $file);
 

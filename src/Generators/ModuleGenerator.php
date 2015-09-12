@@ -222,7 +222,7 @@ class ModuleGenerator extends Generator
     /**
      * Set the workbench instance.
      *
-     * @param  mixed  $workbench
+     * @param  Workbench  $workbench
      *
      * @return self
      */
@@ -256,7 +256,7 @@ class ModuleGenerator extends Generator
     /**
      * Set force status.
      *
-     * @param  bool|int  $force
+     * @param  bool  $force
      *
      * @return self
      */
@@ -365,7 +365,7 @@ class ModuleGenerator extends Generator
      *
      * @param  string  $stub
      *
-     * @return Stub
+     * @return string
      */
     protected function getStubContents($stub)
     {
