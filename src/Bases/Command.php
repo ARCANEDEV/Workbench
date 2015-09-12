@@ -1,43 +1,15 @@
 <?php namespace Arcanedev\Workbench\Bases;
 
-use Illuminate\Console\Command as IlluminateCommand;
+use Arcanedev\Support\Bases\Command as BaseCommand;
 
 /**
- * Class Command
- * @package Arcanedev\Workbench\Bases
+ * Class     Command
+ *
+ * @package  Arcanedev\Workbench\Bases
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-abstract class Command extends IlluminateCommand
+abstract class Command extends BaseCommand
 {
-    /* ------------------------------------------------------------------------------------------------
-     |  Properties
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = '';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = '';
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Constructor
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Create a new command instance.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     /* ------------------------------------------------------------------------------------------------
      |  Getters & Setters
      | ------------------------------------------------------------------------------------------------
@@ -77,13 +49,4 @@ abstract class Command extends IlluminateCommand
     {
         return (bool) $this->option($key);
     }
-
-    /* ------------------------------------------------------------------------------------------------
-     |  Main Functions
-     | ------------------------------------------------------------------------------------------------
-     */
-    /**
-     * Execute the console command.
-     */
-    abstract public function handle();
 }

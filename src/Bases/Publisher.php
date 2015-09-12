@@ -7,6 +7,12 @@ use Illuminate\Console\Command as IlluminateCommand;
 use Illuminate\Filesystem\Filesystem;
 use RuntimeException;
 
+/**
+ * Class     Publisher
+ *
+ * @package  Arcanedev\Workbench\Bases
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 abstract class Publisher implements PublisherInterface
 {
     /* ------------------------------------------------------------------------------------------------
@@ -62,7 +68,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * The constructor.
      *
-     * @param Module $module
+     * @param  Module  $module
      */
     public function __construct(Module $module)
     {
@@ -96,7 +102,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * Set modules repository instance.
      *
-     * @param  Workbench $workbench
+     * @param  Workbench  $workbench
      *
      * @return self
      */
@@ -120,7 +126,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * Set console instance.
      *
-     * @param  IlluminateCommand $console
+     * @param  IlluminateCommand  $console
      *
      * @return self
      */
@@ -170,7 +176,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * Set the show message status
      *
-     * @param  bool $status
+     * @param  bool  $status
      *
      * @return self
      */
@@ -232,7 +238,7 @@ abstract class Publisher implements PublisherInterface
     /**
      * Determine if the given path is a directory.
      *
-     * @param  string $path
+     * @param  string  $path
      *
      * @return bool
      */

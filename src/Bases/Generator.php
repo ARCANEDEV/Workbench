@@ -1,3 +1,12 @@
 <?php namespace Arcanedev\Workbench\Bases;
 
-abstract class Generator {}
+/**
+ * Class     Generator
+ *
+ * @package  Arcanedev\Workbench\Bases
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
+abstract class Generator
+{
+    //
+}

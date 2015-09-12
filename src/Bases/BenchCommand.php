@@ -7,8 +7,10 @@ use Arcanedev\Workbench\Generators\FileGenerator;
 use Arcanedev\Workbench\Traits\ModuleCommandTrait;
 
 /**
- * Class BenchCommand
- * @package Arcanedev\Workbench\Bases
+ * Class     BenchCommand
+ *
+ * @package  Arcanedev\Workbench\Bases
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 abstract class BenchCommand extends Command
 {
@@ -55,7 +57,7 @@ abstract class BenchCommand extends Command
     /**
      * Get the destination file path.
      *
-     * @param  string $name
+     * @param  string  $name
      *
      * @throws InvalidFileNameException
      *
@@ -149,7 +151,7 @@ abstract class BenchCommand extends Command
     /**
      * Get class namespace.
      *
-     * @param  Module $module
+     * @param  Module  $module
      *
      * @return string
      */
