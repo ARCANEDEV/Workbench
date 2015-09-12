@@ -2,12 +2,12 @@
 
 if ( ! function_exists('workbench')) {
     /**
-     * Get workbench instance
+     * Get workbench instance.
      *
      * @return \Arcanedev\Workbench\Workbench
      */
     function workbench()
     {
-        return app('workbench');
+        return app('arcanedev.workbench');
     }
 }
