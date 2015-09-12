@@ -1,5 +1,6 @@
 <?php namespace Arcanedev\Workbench;
 
+use Arcanedev\Support\Collection;
 use Arcanedev\Support\Json;
 use Arcanedev\Workbench\Contracts\WorkbenchInterface;
 use Arcanedev\Workbench\Entities\Module;
@@ -8,8 +9,13 @@ use Arcanedev\Workbench\Process\Installer;
 use Arcanedev\Workbench\Process\Updater;
 use Countable;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Collection;
 
+/**
+ * Class     Workbench
+ *
+ * @package  Arcanedev\Workbench
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class Workbench implements WorkbenchInterface, Countable
 {
     /* ------------------------------------------------------------------------------------------------
