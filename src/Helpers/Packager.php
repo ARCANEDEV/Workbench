@@ -6,34 +6,48 @@ use GuzzleHttp\Client;
 use Illuminate\Filesystem\Filesystem;
 
 /**
- * Class Packager
- * @package Arcanedev\Workbench\Helpers
+ * Class     Packager
+ *
+ * @package  Arcanedev\Workbench\Helpers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 class Packager
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Properties
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
-     * The filesystem handler
+     * The filesystem handler.
      *
      * @var object
      */
     protected $files;
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Constructor
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
-     * Create a new instance
+     * Create a new instance.
      *
-     * @param Filesystem $files
+     * @param  Filesystem  $files
      */
     public function __construct(Filesystem $files)
     {
         $this->files = $files;
     }
 
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
-     * Setting custom formatting for the progress bar
+     * Setting custom formatting for the progress bar.
      *
-     * @param  object $bar Symfony ProgressBar instance
+     * @param  object  $bar
      *
-     * @return object $bar Symfony ProgressBar instance
+     * @return object
      */
     public function barSetup($bar)
     {
@@ -53,27 +67,28 @@ class Packager
     }
 
     /**
-     * Open haystack, find and replace needles, save haystack
+     * Open haystack, find and replace needles, save haystack.
      *
-     * @param  string $oldFile The haystack
-     * @param  mixed  $search  String or array to look for (the needles)
-     * @param  mixed  $replace What to replace the needles for?
-     * @param  string $newFile Where to save, defaults to $oldFile
+     * @param  string  $oldFile  -  The haystack
+     * @param  mixed   $search   -  String or array to look for (the needles)
+     * @param  mixed   $replace  -  What to replace the needles for?
+     * @param  string  $newFile  -  Where to save, defaults to $oldFile
      */
     public function replaceAndSave($oldFile, $search, $replace, $newFile = null)
     {
-        $newFile = ($newFile == null) ? $oldFile : $newFile ;
-        $file = $this->files->get($oldFile);
+        $newFile   = ($newFile == null) ? $oldFile : $newFile ;
+        $file      = $this->files->get($oldFile);
         $replacing = str_replace($search, $replace, $file);
+
         $this->files->put($newFile, $replacing);
     }
 
     /**
-     * Check if the package already exists
+     * Check if the package already exists.
      *
-     * @param  string $path   Path to the package directory
-     * @param  string $vendor The vendor
-     * @param  string $name   Name of the package
+     * @param  string  $path    -  Path to the package directory
+     * @param  string  $vendor  -  The vendor
+     * @param  string  $name    -  Name of the package
      */
     public function checkExistingPackage($path, $vendor, $name)
     {
@@ -83,9 +98,9 @@ class Packager
     }
 
     /**
-     * Create a directory if it doesn't exist
+     * Create a directory if it doesn't exist.
      *
-     * @param  string $path Path of the directory to make
+     * @param  string  $path  -  Path of the directory to make
      */
     public function makeDir($path)
     {
@@ -95,22 +110,22 @@ class Packager
     }
 
     /**
-     * Generate a random temporary filename for the package zipfile
+     * Generate a random temporary filename for the package zipfile.
      *
      * @return string
      */
     public function makeFilename()
     {
-        return getcwd() . '/package' . md5(time() . uniqid()) . '.zip';
+        return getcwd() . DS . 'package' . md5(time() . uniqid()) . '.zip';
     }
 
     /**
-     * Download the temporary Zip to the given file
+     * Download the temporary Zip to the given file.
      *
-     * @param  string $zipFile
-     * @param         $source
+     * @param  string  $zipFile
+     * @param  string  $source
      *
-     * @return Packager
+     * @return self
      */
     public function download($zipFile, $source)
     {
@@ -121,7 +136,7 @@ class Packager
     }
 
     /**
-     * Extract the zip file into the given directory
+     * Extract the zip file into the given directory.
      *
      * @param  string  $zipFile
      * @param  string  $directory
@@ -140,7 +155,7 @@ class Packager
     }
 
     /**
-     * Clean-up the Zip file
+     * Clean-up the Zip file.
      *
      * @param  string  $zipFile
      *

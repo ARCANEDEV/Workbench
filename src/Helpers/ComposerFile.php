@@ -2,6 +2,12 @@
 
 use Arcanedev\Support\Json;
 
+/**
+ * Class     ComposerFile
+ *
+ * @package  Arcanedev\Workbench\Helpers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class ComposerFile
 {
     /* ------------------------------------------------------------------------------------------------
@@ -28,6 +34,11 @@ class ComposerFile
      |  Constructor
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Constructor.
+     *
+     * @param string|null $path
+     */
     public function __construct($path = null)
     {
         if (is_null($path)) {
@@ -43,9 +54,9 @@ class ComposerFile
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Set path
+     * Set path.
      *
-     * @param  string $path
+     * @param  string  $path
      *
      * @return $this
      */
@@ -57,9 +68,9 @@ class ComposerFile
     }
 
     /**
-     * Get extra attribute
+     * Get extra attribute.
      *
-     * @param  array|null $default
+     * @param  array|null  $default
      *
      * @return mixed
      */
@@ -72,6 +83,9 @@ class ComposerFile
      |  Main Functions
      | ------------------------------------------------------------------------------------------------
      */
+    /**
+     * Load the composer.json file.
+     */
     private function load()
     {
         $this->json = new Json($this->path);
@@ -82,7 +96,7 @@ class ComposerFile
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Check if has extra attribute
+     * Check if has extra attribute.
      *
      * @return bool
      */
@@ -92,7 +106,7 @@ class ComposerFile
     }
 
     /**
-     * Check if has merge module feature
+     * Check if has merge module feature.
      *
      * @return bool
      */
@@ -106,9 +120,9 @@ class ComposerFile
     }
 
     /**
-     * Check if has an attribute
+     * Check if has an attribute.
      *
-     * @param  string $key
+     * @param  string  $key
      *
      * @return bool
      */
@@ -117,6 +131,11 @@ class ComposerFile
         return ! is_null($this->json->get($key, null));
     }
 
+    /**
+     * Add merge modules.
+     *
+     * @return self
+     */
     public function addMergeModules()
     {
         $extra = array_merge($this->getExtra(), [
