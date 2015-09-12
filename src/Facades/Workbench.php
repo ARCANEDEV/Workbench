@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class     Workbench
+ *
+ * @package  Arcanedev\Workbench\Facades
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class Workbench extends Facade
 {
     /**
@@ -9,5 +15,5 @@ class Workbench extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'workbench'; }
+    protected static function getFacadeAccessor() { return 'arcanedev.workbench'; }
 }
