@@ -1,8 +1,10 @@
 <?php namespace Arcanedev\Workbench\Contracts;
 
 /**
- * Interface RunableInterface
- * @package Arcanedev\Workbench\Contracts
+ * Interface  RunableInterface
+ *
+ * @package   Arcanedev\Workbench\Contracts
+ * @author    ARCANEDEV <arcanedev.maroc@gmail.com>
  */
 interface RunableInterface
 {
@@ -15,7 +17,7 @@ interface RunableInterface
      *
      * @param string $command
      *
-     * @return mixed
+     * @return mixed|void
      */
     public function run($command);
 }
