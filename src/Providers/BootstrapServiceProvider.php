@@ -1,9 +1,19 @@
 <?php namespace Arcanedev\Workbench\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Arcanedev\Support\ServiceProvider;
 
+/**
+ * Class     BootstrapServiceProvider
+ *
+ * @package  Arcanedev\Workbench\Providers
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ */
 class BootstrapServiceProvider extends ServiceProvider
 {
+    /* ------------------------------------------------------------------------------------------------
+     |  Main Functions
+     | ------------------------------------------------------------------------------------------------
+     */
     /**
      * Booting the package.
      *

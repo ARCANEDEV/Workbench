@@ -1,26 +1,55 @@
 <?php namespace Arcanedev\Workbench;
 
+use Arcanedev\Support\PackageServiceProvider;
 use Arcanedev\Support\Stub;
 use Arcanedev\Workbench\Providers\BootstrapServiceProvider;
-use Illuminate\Support\ServiceProvider;
 
 /**
- * Class WorkbenchServiceProvider
- * @package Arcanedev\Workbench
- * @author  ARCANEDEV
+ * Class     WorkbenchServiceProvider
+ *
+ * @package  Arcanedev\Workbench
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
  */
-class WorkbenchServiceProvider extends ServiceProvider
+class WorkbenchServiceProvider extends PackageServiceProvider
 {
     /* ------------------------------------------------------------------------------------------------
      |  Properties
      | ------------------------------------------------------------------------------------------------
      */
     /**
+     * Vendor name.
+     *
+     * @var string
+     */
+    protected $vendor   = 'workbench';
+
+    /**
+     * Package name.
+     *
+     * @var string
+     */
+    protected $package  = 'workbench';
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
      */
-    protected $defer = false;
+    protected $defer    = false;
+
+    /* ------------------------------------------------------------------------------------------------
+     |  Getters & Setters
+     | ------------------------------------------------------------------------------------------------
+     */
+    /**
+     * Get the base path of the package.
+     *
+     * @return string
+     */
+    public function getBasePath()
+    {
+        return dirname(__DIR__);
+    }
 
     /* ------------------------------------------------------------------------------------------------
      |  Main Functions
@@ -28,8 +57,6 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     /**
      * Bootstrap the application events.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -38,12 +65,10 @@ class WorkbenchServiceProvider extends ServiceProvider
 
     /**
      * Register the command.
-     *
-     * @return void
      */
     public function register()
     {
-        $this->registerConfigs();
+        $this->registerConfig();
         $this->registerServices();
         $this->registerStubs();
         $this->registerProviders();
@@ -56,7 +81,9 @@ class WorkbenchServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['workbench'];
+        return [
+            'arcanedev.workbench'
+        ];
     }
 
     /* ------------------------------------------------------------------------------------------------
@@ -64,34 +91,18 @@ class WorkbenchServiceProvider extends ServiceProvider
      | ------------------------------------------------------------------------------------------------
      */
     /**
-     * Register all package configs
-     */
-    private function registerConfigs()
-    {
-        $configPath = __DIR__ . '/../config/workbench.php';
-
-        $this->mergeConfigFrom($configPath, 'workbench');
-        $this->publishes([
-            $configPath => config_path('workbench.php')
-        ]);
-    }
-
-    /**
      * Register all services
      */
     private function registerServices()
     {
-        $this->app->bind('workbench', function ($app) {
+        $this->app->singleton('arcanedev.workbench', function ($app) {
             /** @var \Illuminate\Config\Repository $config */
             $config = $app['config'];
 
             return new Workbench($app, $config->get('workbench.paths.modules'));
         });
 
-        $this->app->bind(
-            \Arcanedev\Workbench\Contracts\WorkbenchInterface::class,
-            \Arcanedev\Workbench\Workbench::class
-        );
+        $this->app->bind(Contracts\WorkbenchInterface::class, Workbench::class);
     }
 
     /**
@@ -102,7 +113,7 @@ class WorkbenchServiceProvider extends ServiceProvider
         $this->app->booted(function ($app) {
             /** @var \Illuminate\Config\Repository $config */
             $config = $app['config'];
-            $path   = __DIR__ . '/../stubs';
+            $path   = $this->getBasePath() . DS .'stubs';
 
             if ($config->get('workbench.stubs.enabled', false) === true) {
                 $path = (string) $config->get('workbench.stubs.path', $path);
@@ -115,7 +126,7 @@ class WorkbenchServiceProvider extends ServiceProvider
     /**
      * Register providers.
      */
-    protected function registerProviders()
+    private function registerProviders()
     {
         $this->app->register(Providers\CommandsServiceProvider::class);
     }
