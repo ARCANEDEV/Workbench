@@ -7,14 +7,16 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class Module
- * @package Arcanedev\Workbench\Entities
+ * Class     Module
  *
- * @property string name
- * @property string alias
- * @property string description
- * @property array  keywords
- * @property int    active
+ * @package  Arcanedev\Workbench\Entities
+ * @author   ARCANEDEV <arcanedev.maroc@gmail.com>
+ *
+ * @property  string  name
+ * @property  string  alias
+ * @property  string  description
+ * @property  array   keywords
+ * @property  int     active
  */
 class Module extends ServiceProvider
 {
@@ -62,7 +64,8 @@ class Module extends ServiceProvider
      */
     public function __construct(Application $app, $name, $path)
     {
-        $this->app = $app;
+        parent::__construct($app);
+
         $this->setName($name);
         $this->setPath(realpath($path));
         $this->setDispatcher($app['events']);
@@ -95,7 +98,7 @@ class Module extends ServiceProvider
     /**
      * Set name.
      *
-     * @param  string $name
+     * @param  string  $name
      *
      * @return Module
      */
@@ -139,7 +142,7 @@ class Module extends ServiceProvider
     /**
      * Set path.
      *
-     * @param  string $path
+     * @param  string  $path
      *
      * @return self
      */
@@ -193,7 +196,7 @@ class Module extends ServiceProvider
     /**
      * Set active state for current module.
      *
-     * @param  bool $active
+     * @param  bool  $active
      *
      * @return bool
      */
@@ -207,7 +210,7 @@ class Module extends ServiceProvider
     /**
      * Get extra path.
      *
-     * @param $path
+     * @param  string  $path
      *
      * @return string
      */
@@ -229,7 +232,7 @@ class Module extends ServiceProvider
     /**
      * Handle call to __get method.
      *
-     * @param  string $key
+     * @param  string  $key
      *
      * @return mixed
      */
@@ -241,8 +244,8 @@ class Module extends ServiceProvider
     /**
      * Get a specific data from json file by given the key.
      *
-     * @param  string     $key
-     * @param  mixed|null $default
+     * @param  string      $key
+     * @param  mixed|null  $default
      *
      * @return mixed
      */
@@ -254,7 +257,7 @@ class Module extends ServiceProvider
     /**
      * Set event dispatcher
      *
-     * @param  EventsDispatcher $events
+     * @param  EventsDispatcher  $events
      *
      * @return self
      */
@@ -366,9 +369,9 @@ class Module extends ServiceProvider
     /**
      * Switch the current module active.
      *
-     * @param bool   $value
-     * @param string $before
-     * @param string $after
+     * @param  bool    $value
+     * @param  string  $before
+     * @param  string  $after
      */
     private function switchActive($value, $before, $after)
     {
@@ -395,7 +398,7 @@ class Module extends ServiceProvider
     /**
      * Determine whether the given status same with the current module status.
      *
-     * @param  bool $status
+     * @param  bool  $status
      *
      * @return bool
      */
@@ -451,7 +454,7 @@ class Module extends ServiceProvider
     /**
      * Register the module event.
      *
-     * @param string $event
+     * @param  string  $event
      */
     private function fireEvent($event)
     {
